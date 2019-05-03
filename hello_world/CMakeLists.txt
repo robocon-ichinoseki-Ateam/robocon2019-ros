@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(robocon2019-ros)
+project(robocon19_hello)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -102,7 +102,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES robocon2019-ros
+#  LIBRARIES robocon19_hello
 #  CATKIN_DEPENDS roscpp
 #  DEPENDS system_lib
 )
@@ -120,7 +120,7 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/robocon2019-ros.cpp
+#   src/${PROJECT_NAME}/robocon19_hello.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -188,7 +188,7 @@ target_link_libraries(hello_node
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_robocon2019-ros.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_robocon19_hello.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

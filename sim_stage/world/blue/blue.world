@@ -19,11 +19,11 @@ define topurg ranger
 
 define erratic position
 (
-  size [0.800 0.800 0.300]
-  origin [0.000 0.000 0.000 0.000]
+  size [0.8 0.8 0.3]
+  origin [0 0 0 0]
   gui_nose 1
   drive "omni"
-  topurg(pose [ 0.050 0.000 0.000 0.000 ])
+  topurg(pose [ 0.3 0 -0.3 0 ])
 )
 
 define floorplan model

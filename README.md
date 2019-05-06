@@ -1,5 +1,4 @@
 # KOSEN Robocon 2019 ROS programs
-=================
 
 # 必要なデバイス
 * YDLIDAR X4（以下LRF）
@@ -16,13 +15,12 @@
 
 
 ## 自己位置推定シミュレーションの実行
-ターミナルで
+ターミナルで以下を実行．（デフォルトは赤ゾーンでの起動となる）
 ```shell
 roslaunch robocon19_sim_stage robocon19_sim_stage.launch
 ```
-デフォルトは赤ゾーンでの起動となる
 
-デフォルトは青ゾーンで起動したい場合は
+青ゾーンで起動したい場合は
 ```shell
 roslaunch robocon19_sim_stage robocon19_sim_stage.launch zone:=blue
 ```
@@ -43,10 +41,10 @@ sudo sh initenv.sh
 `ls /dev/ydlidar`で見れれば成功．
 
 ### プログラムの実行
+rvizも起動し，点群が確認できる．
 ```shell
 roslaunch ydlidarrobocon19_lrf lidar_view.launch
 ```
-rvizも起動し，点群が確認できる．
 
 可視化が必要ない場合は
 ```shell
@@ -63,9 +61,8 @@ laser_frame　→　base_laser_link
 /scan　→　base_scan
 
 
-#LICENSE
-
-Copyright (c) 2015 Ryoga Sato
+# LICENSE
+Copyright (c) 2019 Ryoga Sato
 
 https://surpace0924.github.io/
 

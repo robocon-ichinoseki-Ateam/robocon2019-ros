@@ -1,4 +1,4 @@
 <launch>
-  <include file="$(find ydlidar)/launch/lidar.launch" />
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ydlidar)/launch/lidar.rviz" />
+  <include file="$(find robocon19_lrf)/launch/lidar.launch" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find robocon19_lrf)/launch/lidar.rviz" />
 </launch>

@@ -7,7 +7,6 @@ Panels:
         - /Global Options1
         - /Status1
         - /LidarLaserScan1
-        - /OverlayText1
       Splitter Ratio: 0.5
     Tree Height: 590
   - Class: rviz/Selection
@@ -28,6 +27,8 @@ Panels:
     Name: Time
     SyncMode: 0
     SyncSource: LidarLaserScan
+Toolbars:
+  toolButtonStyle: 2
 Visualization Manager:
   Class: ""
   Displays:
@@ -74,7 +75,7 @@ Visualization Manager:
       Size (Pixels): 5
       Size (m): 0.0299999993
       Style: Squares
-      Topic: /scan
+      Topic: /base_scan
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -109,54 +110,34 @@ Visualization Manager:
       Topic: /initialpose
       Unreliable: false
       Value: true
-    - Class: rviz/MarkerArray
+    - Class: rviz/TF
       Enabled: true
-      Marker Topic: /marker_array
-      Name: MarkerArray
-      Namespaces:
-        basic_shapes: true
-      Queue Size: 100
+      Frame Timeout: 15
+      Frames:
+        All Enabled: true
+        base_footprint:
+          Value: true
+        base_laser_link:
+          Value: true
+        base_link:
+          Value: true
+      Marker Scale: 1
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+      Tree:
+        base_footprint:
+          base_link:
+            base_laser_link:
+              {}
+      Update Interval: 0
       Value: true
-    - Class: rviz/Marker
-      Enabled: true
-      Marker Topic: /measur_surface
-      Name: Marker
-      Namespaces:
-        basic_shapes: true
-      Queue Size: 100
-      Value: true
-    - Class: rviz/Marker
-      Enabled: true
-      Marker Topic: /statistics_surface
-      Name: Marker
-      Namespaces:
-        basic_shapes: true
-      Queue Size: 100
-      Value: true
-    - Align Bottom: false
-      Background Alpha: 0.800000012
-      Background Color: 0; 0; 0
-      Class: jsk_rviz_plugin/OverlayText
-      Enabled: true
-      Foreground Alpha: 0.800000012
-      Foreground Color: 25; 255; 240
-      Name: OverlayText
-      Overtake Color Properties: false
-      Overtake Position Properties: false
-      Topic: /text
-      Value: true
-      font: DejaVu Sans Mono
-      height: 128
-      left: 0
-      line width: 2
-      text size: 12
-      top: 0
-      width: 128
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: laser_frame
+    Fixed Frame: base_laser_link
     Frame Rate: 30
   Name: root
   Tools:
@@ -172,16 +153,16 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 2.34241414
+      Distance: 8.89764214
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.0481193215
-        Y: 0.740781486
-        Z: 0.365959257
+        X: 0.0011486084
+        Y: -0.00545632793
+        Z: 0.365213484
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
@@ -208,5 +189,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1213
-  X: 67
-  Y: 24
+  X: 2241
+  Y: 121

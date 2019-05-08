@@ -15,13 +15,13 @@
     <param name="samp_rate"    type="int"    value="9"/>
     <param name="frequency"    type="double" value="7"/>
   </node>
-  <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser4"
-    args="0.2245 0.0 0.2 0.0 0.0  0.0 /base_footprint /base_laser_link 40" />
 
-  <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser5"
-    args="0.0 0.0 0.0 0.0 0.0 0.0 /base_laser_link /laser 40" />
-  <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser"
-    args="0.0 0.0 0.0 0.0 0.0 0.0 /laser /base_link 40" />
-  <node pkg="tf" type="static_transform_publisher" name="laser_to_base_link"
-    args="0.0 0.0 0.0 0.0 0.0 0.0 /base_link /laser 40" />
+  <node pkg="tf" type="static_transform_publisher" name="safas"
+    args="0.0 0.0 0.0 0.0 0.0 0.0 /map /base_footprint 40" />
+
+  <node pkg="tf" type="static_transform_publisher" name="base_footprint_to_base_link"
+    args="0.0 0.0 0.0 0.0 0.0 0.0 /base_footprint /base_link 40" />
+
+  <node pkg="tf" type="static_transform_publisher" name="base_link_to_base_laser_link"
+    args="0.0 0.0 0.0 0.0 0.0 0.0 /base_link /base_laser_link 40" />
 </launch>

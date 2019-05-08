@@ -28,6 +28,17 @@
     <include file="$(find robocon19_navigation)/move_base_config/amcl_node_B.xml"/>
   </group>
 
+  <!-- テストフィールドでマップを起動 -->
+  <group if="$(eval zone=='test')">
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find robocon19_sim_stage)/world/test_field/test_field.yaml" respawn="false" />
+
+    <node pkg="stage_ros" type="stageros" name="stageros" args="$(find robocon19_sim_stage)/world/test_field/test_field.world" respawn="false" >
+      <param name="base_watchdog_timeout" value="0.2"/>
+    </node>
+
+    <include file="$(find robocon19_navigation)/move_base_config/amcl_node_test.xml"/>
+  </group>
+
   <arg name="rvizconfig" default="$(find robocon19_sim_stage)/config/SETTING.rviz" />
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find robocon19_sim_stage)/config/SETTING.rviz" />
 </launch>

@@ -52,14 +52,9 @@ roslaunch ydlidarrobocon19_lrf lidar.launch
 ```
 
 ### 公式のコードとの変更点
-主にgmappingとの接続性を向上させるための変更を行った
 
 #### frame_id
-laser_frame　→　base_laser_link
-
-#### topic名
-/scan　→　base_scan
-
+`/laser_frame`　→　`/laser`
 
 # LICENSE
 Copyright (c) 2019 Ryoga Sato

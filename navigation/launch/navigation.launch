@@ -1,0 +1,8 @@
+<launch>
+  <param name="/use_sim_time" value="true"/>
+
+  <include file="$(find robocon19_navigation)/launch/map_server.launch"/>
+  <include file="$(find robocon19_navigation)/launch/laser_odometry.launch"/>
+  <include file="$(find robocon19_navigation)/launch/amcl.launch"/>
+
+</launch>

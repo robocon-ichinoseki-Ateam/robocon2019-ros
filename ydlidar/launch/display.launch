@@ -21,7 +21,7 @@
  <node name="robocon19_lrf_node"  pkg="robocon19_lrf"  type="robocon19_lrf_node" output="screen">
     <param name="port"         type="string" value="/dev/ydlidar"/>
     <param name="baudrate"     type="int"    value="115200"/>
-    <param name="frame_id"     type="string" value="base_laser_link"/>
+    <param name="frame_id"     type="string" value="laser"/>
     <param name="angle_fixed"  type="bool"   value="true"/>
     <param name="low_exposure"  type="bool"   value="false"/>
     <param name="heartbeat"    type="bool"   value="false"/>

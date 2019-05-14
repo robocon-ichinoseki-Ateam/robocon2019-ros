@@ -36,8 +36,8 @@
   <param name="transform_tolerance" value="0.1"/>
   <param name="recovery_alpha_slow" value="0.0"/>
   <param name="recovery_alpha_fast" value="0.0"/>
-  <param name="initial_pose_x" value="4.7" />
-  <param name="initial_pose_y" value="2.2" />
+  <param name="initial_pose_x" value="4.65" />
+  <param name="initial_pose_y" value="2.53" />
   <param name="initial_pose_a" value="1.5708" />
   <param name="initial_cov_xx" value="0.5" />
   <param name="initial_cov_yy" value="0.5" />

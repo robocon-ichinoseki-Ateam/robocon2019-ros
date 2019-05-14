@@ -8,9 +8,9 @@
 
   <!-- 赤ゾーンでマップを起動 -->
   <group if="$(eval zone=='red')">
-    <node name="map_server" pkg="map_server" type="map_server" args="$(find robocon19_sim_stage)/world/red/red.yaml" respawn="false" />
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find robocon19_map)/map/red/red.yaml" respawn="false" />
 
-    <node pkg="stage_ros" type="stageros" name="stageros" args="$(find robocon19_sim_stage)/world/red/red.world" respawn="false" >
+    <node pkg="stage_ros" type="stageros" name="stageros" args="$(find robocon19_map)/map/red/red.world" respawn="false" >
       <param name="base_watchdog_timeout" value="0.2"/>
     </node>
 
@@ -19,9 +19,9 @@
 
   <!-- 青ゾーンでマップを起動 -->
   <group if="$(eval zone=='blue')">
-    <node name="map_server" pkg="map_server" type="map_server" args="$(find robocon19_sim_stage)/world/blue/blue.yaml" respawn="false" />
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find robocon19_map)/map/blue/blue.yaml" respawn="false" />
 
-    <node pkg="stage_ros" type="stageros" name="stageros" args="$(find robocon19_sim_stage)/world/blue/blue.world" respawn="false" >
+    <node pkg="stage_ros" type="stageros" name="stageros" args="$(find robocon19_map)/map/blue/blue.world" respawn="false" >
       <param name="base_watchdog_timeout" value="0.2"/>
     </node>
 
@@ -30,9 +30,9 @@
 
   <!-- テストフィールドでマップを起動 -->
   <group if="$(eval zone=='test')">
-    <node name="map_server" pkg="map_server" type="map_server" args="$(find robocon19_sim_stage)/world/test_field/test_field.yaml" respawn="false" />
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find robocon19_map)/map/test_field/test_field.yaml" respawn="false" />
 
-    <node pkg="stage_ros" type="stageros" name="stageros" args="$(find robocon19_sim_stage)/world/test_field/test_field.world" respawn="false" >
+    <node pkg="stage_ros" type="stageros" name="stageros" args="$(find robocon19_map)/map/test_field/test_field.world" respawn="false" >
       <param name="base_watchdog_timeout" value="0.2"/>
     </node>
 

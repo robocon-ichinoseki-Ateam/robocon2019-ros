@@ -1,3 +1,0 @@
-<launch>
-  <node name="map_server" pkg="map_server" type="map_server" args="$(find robocon19_sim_stage)/world/test_field/test_field.yaml"/>
-</launch>

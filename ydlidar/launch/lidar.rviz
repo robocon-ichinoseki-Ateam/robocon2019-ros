@@ -31,7 +31,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: LidarLaserScan
 Toolbars:
   toolButtonStyle: 2
 Visualization Manager:
@@ -124,6 +124,10 @@ Visualization Manager:
           Value: true
         laser:
           Value: true
+        map:
+          Value: true
+        odom:
+          Value: true
       Marker Scale: 1
       Name: TF
       Show Arrows: true
@@ -133,6 +137,10 @@ Visualization Manager:
         base_link:
           laser:
             {}
+        map:
+          {}
+        odom:
+          {}
       Update Interval: 0
       Value: true
     - Alpha: 0.699999988
@@ -175,7 +183,7 @@ Visualization Manager:
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: base_link
+    Fixed Frame: laser
     Frame Rate: 30
   Name: root
   Tools:
@@ -191,16 +199,16 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 7.42413807
+      Distance: 6.16497755
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 2.80405378
-        Y: 2.31295562
-        Z: 0.003227907
+        X: -0.0391535386
+        Y: -1.86746407
+        Z: 0.00618607458
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
@@ -209,7 +217,7 @@ Visualization Manager:
       Pitch: 1.56979632
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.72543097
+      Yaw: 6.27543306
     Saved: ~
 Window Geometry:
   Displays:
@@ -227,5 +235,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1615
-  X: 1985
+  X: 303
   Y: 24

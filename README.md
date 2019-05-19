@@ -21,7 +21,6 @@ sudo apt-get install -y ros-kinetic-jsk-visualization
 * robocon19_node - 全ノードの統括ノード
 * robocon19_lrf_node - LRFのデータを出版する
 
-
 ## 自己位置推定シミュレーションの実行
 ターミナルで以下を実行．（デフォルトは赤ゾーンでの起動となる）
 ```shell
@@ -41,7 +40,7 @@ LRFのシリアルポートを「/dev/ydlidar」と登録する．
 
 LRFのみを接続した状態で以下を実行する．
 ```shell
-cd ~/ros_catkin_ws/src/ydlidar/startup
+cd ~/catkin_ws/src/robocon2019-ros/robocon19_lrf/startup
 chmod 777 *
 sudo sh initenv.sh
 ```

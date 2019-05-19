@@ -12,7 +12,14 @@
 rviz上に情報を表示するために、jskのrvizプラグラインを使用しています。
 kinetic版は以下のコマンドでインストールできます。
 ```shell
-sudo apt-get install -y ros-kinetic-jsk-visualization
+$ sudo apt-get install -y ros-kinetic-jsk-visualization
+```
+
+その他、自己位置推定に必要なライブラリ群は以下のコマンドでインストールできます。
+```shell
+$ sudo apt update
+$ sudo apt upgrade
+$ sudo apt-get install ros-kinetic-joy ros-kinetic-teleop-twist-joy ros-kinetic-teleop-twist-keyboard ros-kinetic-laser-proc ros-kinetic-rgbd-launch ros-kinetic-depthimage-to-laserscan ros-kinetic-rosserial-arduino ros-kinetic-rosserial-python ros-kinetic-rosserial-server ros-kinetic-rosserial-client ros-kinetic-rosserial-msgs ros-kinetic-amcl ros-kinetic-map-server ros-kinetic-move-base ros-kinetic-urdf ros-kinetic-xacro ros-kinetic-compressed-image-transport ros-kinetic-rqt-image-view ros-kinetic-gmapping ros-kinetic-navigation ros-kinetic-interactive-markers ros-kinetic-scan-tools
 ```
 
 # ROS ノード一覧
@@ -24,12 +31,12 @@ sudo apt-get install -y ros-kinetic-jsk-visualization
 ## 自己位置推定シミュレーションの実行
 ターミナルで以下を実行．（デフォルトは赤ゾーンでの起動となる）
 ```shell
-roslaunch robocon19_sim_stage sim_stage.launch
+$ roslaunch robocon19_sim_stage sim_stage.launch
 ```
 
 青ゾーンで起動したい場合は
 ```shell
-roslaunch robocon19_sim_stage sim_stage.launch zone:=blue
+$ roslaunch robocon19_sim_stage sim_stage.launch zone:=blue
 ```
 
 ## LRFプログラムの実行
@@ -40,9 +47,9 @@ LRFのシリアルポートを「/dev/ydlidar」と登録する．
 
 LRFのみを接続した状態で以下を実行する．
 ```shell
-cd ~/catkin_ws/src/robocon2019-ros/robocon19_lrf/startup
-chmod 777 *
-sudo sh initenv.sh
+$ cd ~/catkin_ws/src/robocon2019-ros/robocon19_lrf/startup
+$ chmod 777 *
+$ sudo sh initenv.sh
 ```
 
 `ls /dev/ydlidar`で見れれば成功．
@@ -50,12 +57,12 @@ sudo sh initenv.sh
 ### プログラムの実行
 rvizも起動し，点群が確認できる．
 ```shell
-roslaunch ydlidarrobocon19_lrf lidar_view.launch
+$ roslaunch ydlidarrobocon19_lrf lidar_view.launch
 ```
 
 可視化が必要ない場合は
 ```shell
-roslaunch ydlidarrobocon19_lrf lidar.launch
+$ roslaunch ydlidarrobocon19_lrf lidar.launch
 ```
 
 ### 公式のコードとの変更点

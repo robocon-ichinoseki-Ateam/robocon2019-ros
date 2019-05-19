@@ -1,28 +1,36 @@
 # KOSEN Robocon 2019 ROS programs
 
-# 必要なデバイス
-* YDLIDAR X4（以下LRF）
-
 # 動作環境
 * Ubuntu 16.04 （LTS）
 * ROS Kinetic
 * Intel Core i7 5500U
 
+# 必要なデバイス
+* YDLIDAR X4（以下LRF）
+
+# 必要なライブラリ
+rviz上に情報を表示するために、jskのrvizプラグラインを使用しています。
+kinetic版は以下のコマンドでインストールできます。
+```shell
+sudo apt-get install -y ros-kinetic-jsk-visualization
+```
+
 # ROS ノード一覧
 このプロジェクトは以下のノードを含みます。
 
+* robocon19_node - 全ノードの統括ノード
 * robocon19_lrf_node - LRFのデータを出版する
 
 
 ## 自己位置推定シミュレーションの実行
 ターミナルで以下を実行．（デフォルトは赤ゾーンでの起動となる）
 ```shell
-roslaunch robocon19_sim_stage robocon19_sim_stage.launch
+roslaunch robocon19_sim_stage sim_stage.launch
 ```
 
 青ゾーンで起動したい場合は
 ```shell
-roslaunch robocon19_sim_stage robocon19_sim_stage.launch zone:=blue
+roslaunch robocon19_sim_stage sim_stage.launch zone:=blue
 ```
 
 ## LRFプログラムの実行

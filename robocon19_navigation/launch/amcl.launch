@@ -1,4 +1,8 @@
 <launch>
+
+
+  <param name="/use_sim_time" value="true"/>
+
   <node pkg="amcl" type="amcl" name="amcl">
     <!--<remap from="scan" to="base_scan"/>-->
     <!-- Publish scans from best pose at a max of 10 Hz -->
@@ -36,7 +40,7 @@
     <param name="recovery_alpha_slow" value="0.0"/>
     <param name="recovery_alpha_fast" value="0.0"/>
     <param name="initial_pose_x" value="4.75" />
-    <param name="initial_pose_y" value="2.18" />
+    <param name="initial_pose_y" value="1.95" />
     <param name="initial_pose_a" value="1.5708" />
     <param name="initial_cov_xx" value="0.5" />
     <param name="initial_cov_yy" value="0.5" />

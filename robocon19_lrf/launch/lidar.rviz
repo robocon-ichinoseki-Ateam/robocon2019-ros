@@ -10,8 +10,6 @@ Panels:
         - /TF1
         - /TF1/Frames1
         - /TF1/Tree1
-        - /Map2
-        - /PoseArray1
       Splitter Ratio: 0.5
     Tree Height: 814
   - Class: rviz/Selection
@@ -120,27 +118,13 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
-        base_link:
-          Value: true
-        laser:
-          Value: true
-        map:
-          Value: true
-        odom:
-          Value: true
       Marker Scale: 1
       Name: TF
       Show Arrows: true
       Show Axes: true
       Show Names: true
       Tree:
-        base_link:
-          laser:
-            {}
-        map:
-          {}
-        odom:
-          {}
+        {}
       Update Interval: 0
       Value: true
     - Alpha: 0.699999988
@@ -214,7 +198,7 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 1.56979632
+      Pitch: 1.56479633
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
       Yaw: 6.27543306

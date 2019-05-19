@@ -1,9 +1,6 @@
 <launch>
   <!-- <node pkg="tf" type="static_transform_publisher" name="tf_base_link_to_laser" args="0.0 0 0 0.0 0.0 0.0 /base_link /laser 100" /> -->
 
-
-  <param name="/use_sim_time" value="true"/>
-
   <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser"
     args="0.29 0.0 0.0 0.0 0.0 1.0 0 /base_link /laser 40" />
 

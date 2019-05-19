@@ -4,13 +4,13 @@
 
   <include file="$(find robocon19_map)/launch/map_test.launch"/>
 
-  <!-- <include file="$(find robocon19_lrf)/launch/lidar.launch"/> -->
+  <include file="$(find robocon19_lrf)/launch/lidar.launch"/>
 
   <include file="$(find robocon19_laser_odometry)/launch/laser_odometry.launch"/>
 
   <include file="$(find robocon19_navigation)/launch/amcl.launch"/>
 
-  <node name="robocon19_node"    pkg="robocon19" type="robocon19_node" output="screen"/>
+  <node name="robocon19_node" pkg="robocon19" type="robocon19_node" output="screen"/>
 
   <arg name="rvizconfig" default="$(find robocon19)/rviz/SETTING.rviz" />
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find robocon19)/rviz/SETTING.rviz" />

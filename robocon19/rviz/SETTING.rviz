@@ -110,7 +110,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.00999999978
       Style: Flat Squares
-      Topic: /base_scan
+      Topic: /scan
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -143,7 +143,7 @@ Visualization Manager:
       Value: true
     - Alpha: 1
       Class: rviz/Polygon
-      Color: 255; 0; 255
+      Color: 85; 255; 127
       Enabled: true
       Name: Polygon
       Topic: /move_base_node/global_costmap/footprint

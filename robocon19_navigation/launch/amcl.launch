@@ -36,11 +36,12 @@
     <param name="transform_tolerance" value="0.1"/>
     <param name="recovery_alpha_slow" value="0.0"/>
     <param name="recovery_alpha_fast" value="0.0"/>
-    <param name="initial_pose_x" value="4.75" />
-    <param name="initial_pose_y" value="1.95" />
-    <param name="initial_pose_a" value="1.5708" />
-    <param name="initial_cov_xx" value="0.5" />
-    <param name="initial_cov_yy" value="0.5" />
+    <param name="initial_pose_x" value="4.65" />
+    <param name="initial_pose_y" value="2.05" />
+    <param name="initial_pose_a" value="0" />
+    <!-- <param name="initial_pose_a" value="1.5708" /> -->
+    <param name="initial_cov_xx" value="0.01" />
+    <param name="initial_cov_yy" value="0.01" />
     <param name="initial_cov_aa" value="0.1" />
   </node>
 
@@ -61,6 +62,7 @@
     <rosparam file="$(find robocon19_navigation)/move_base_config/local_costmap_params.yaml" command="load" />
     <rosparam file="$(find robocon19_navigation)/move_base_config/global_costmap_params.yaml" command="load" />
     <rosparam file="$(find robocon19_navigation)/move_base_config/base_local_planner_params.yaml" command="load" />
+
     <!--
     <rosparam file="$(find robocon19_navigation)/move_base_config/dwa_local_planner_params.yaml" command="load" />
     -->

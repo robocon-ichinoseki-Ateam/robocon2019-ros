@@ -7,7 +7,7 @@ image: test_field.png
 resolution: 0.01
 
 # origin: マップの左下端の座標[x,y,θ]
-origin: [0, 0, 0]
+origin: [-4.65, -2.05, 0]
 
 # negate: 白黒反転させるかどうか
 negate: 0

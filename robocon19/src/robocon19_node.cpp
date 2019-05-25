@@ -14,7 +14,7 @@
 void sendText(jsk_rviz_plugins::OverlayText &t, std::string str)
 {
     t.action = jsk_rviz_plugins::OverlayText::ADD;
-    t.width = 100;
+    t.width = 140;
     t.height = 100;
     t.left = 10;
     t.top = 10;
@@ -36,6 +36,14 @@ void sendText(jsk_rviz_plugins::OverlayText &t, std::string str)
     t.text_size = 14;
     t.font = "Ubuntu";
     t.text = str;
+}
+
+double roll, pitch, yaw;
+void geometry_quat_to_rpy(double &roll, double &pitch, double &yaw, geometry_msgs::Quaternion geometry_quat)
+{
+    tf::Quaternion quat;
+    quaternionMsgToTF(geometry_quat, quat);
+    tf::Matrix3x3(quat).getRPY(roll, pitch, yaw); //rpy are Pass by Reference
 }
 
 int main(int argc, char **argv)
@@ -63,10 +71,13 @@ int main(int argc, char **argv)
             ln.waitForTransform(source_pose.header.frame_id, target_frame, ros::Time(0), ros::Duration(1.0));
             ln.transformPose(target_frame, source_pose, target_pose);
 
+            geometry_quat_to_rpy(roll, pitch, yaw, target_pose.pose.orientation);
+
             std::stringstream ss;
             ss << "-position-\r\n"
                << "x: " << target_pose.pose.position.x << "\r\n"
-               << "y: " << target_pose.pose.position.y;
+               << "y: " << target_pose.pose.position.y << "\r\n"
+               << "z: " << yaw * 180 / 3.14159;
 
             std::string send_str = ss.str();
 

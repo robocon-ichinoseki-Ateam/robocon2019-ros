@@ -1,7 +1,8 @@
 <launch>
   <node name="robocon19_lrf_node"  pkg="robocon19_lrf"  type="robocon19_lrf_node" output="screen" respawn="false" >
     <param name="port"         type="string" value="/dev/ydlidar"/>
-    <param name="baudrate"     type="int"    value="115200"/>
+    <!-- <param name="baudrate"     type="int"    value="115200"/> -->
+    <param name="baudrate"     type="int"    value="12800"/>
     <param name="frame_id"     type="string" value="laser"/>
     <param name="low_exposure"  type="bool"   value="false"/>
     <param name="resolution_fixed"    type="bool"   value="true"/>

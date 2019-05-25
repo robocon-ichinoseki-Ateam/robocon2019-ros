@@ -1,0 +1,5 @@
+<launch>
+
+  <node name="robocon19_mbed_node" pkg="robocon19_mbed" type="robocon19_mbed_node" output="screen"/>
+
+</launch>

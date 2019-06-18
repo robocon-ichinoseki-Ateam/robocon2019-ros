@@ -8,7 +8,6 @@
 #include <iostream>
 #include <stdio.h>
 #include <sstream>
-#include <string>
 #include <math.h>
 
 void geometry_quat_to_rpy(double &roll, double &pitch, double &yaw, geometry_msgs::Quaternion geometry_quat);

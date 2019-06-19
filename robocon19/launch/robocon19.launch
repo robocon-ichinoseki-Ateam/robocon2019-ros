@@ -37,8 +37,8 @@
   <!-- <include file="$(find robocon19_laser_odometry)/launch/laser_odometry.launch"/> -->
 
   <!-- 自己位置推定ノードの起動 -->
-  <include file="$(find robocon19_navigation)/launch/move_base.launch"/>
-  <include file="$(find robocon19_navigation)/launch/amcl.launch"/>
+  <include file="$(find robocon19_localization)/launch/move_base.launch"/>
+  <include file="$(find robocon19_localization)/launch/amcl.launch"/>
 
   <!-- その他機能の起動 -->
   <node name="robocon19_node" pkg="robocon19" type="robocon19_node" output="screen"/>

@@ -146,6 +146,14 @@ Visualization Manager:
                   {}
       Update Interval: 0
       Value: true
+    - Alpha: 1
+      Class: rviz/Polygon
+      Color: 25; 255; 0
+      Enabled: true
+      Name: Polygon
+      Topic: /move_base_node/local_costmap/footprint
+      Unreliable: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -171,16 +179,16 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 6.07977676
+      Distance: 12.868144
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 2.51038885
-        Y: 2.17529321
-        Z: 0.00232703122
+        X: 3.39272976
+        Y: 4.88596058
+        Z: 0.00503664743
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
@@ -267,5 +275,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 1200
-  X: 2398
+  X: 478
   Y: 24

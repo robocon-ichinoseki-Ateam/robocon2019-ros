@@ -24,7 +24,7 @@
   </node>
 
 
-  <include file="$(find robocon19_navigation)/launch/move_base.launch"/>
+  <include file="$(find robocon19_localization)/launch/move_base.launch"/>
   <!-- mbedの起動 -->
   <include file="$(find robocon19_mbed)/launch/robocon19_mbed.launch"/>
 

@@ -30,8 +30,10 @@
 
   <include file="$(find robocon19_laser_filters)/launch/laser_filter.launch"/>
 
-    <!-- mbedの起動 -->
-    <include file="$(find robocon19_mbed)/launch/robocon19_mbed.launch"/>
+  <!-- mbedの起動 -->
+  <include file="$(find robocon19_mbed)/launch/robocon19_mbed.launch"/>
+
+  <include file="$(find robocon19_localization)/launch/robocon19_localization.launch"/>
 
   <!-- レーザーオドメトリの起動（オドメータ不使用時） -->
   <!-- <include file="$(find robocon19_laser_odometry)/launch/laser_odometry.launch"/> -->

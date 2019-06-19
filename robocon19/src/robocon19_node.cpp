@@ -10,10 +10,20 @@
 #include <sstream>
 #include <math.h>
 
+float pose_arry[3] = {0};
+
 void geometry_quat_to_rpy(double &roll, double &pitch, double &yaw, geometry_msgs::Quaternion geometry_quat);
 void getRobotPose(float return_pose[3]);
 void configOverlayText(jsk_rviz_plugins::OverlayText &t, std::string str);
 std::string generateDisplayStr(float pose[3]);
+
+// robot_pose のコールバック
+void callbackFromPose(const geometry_msgs::Pose2D &pose)
+{
+    pose_arry[0] = pose.x;
+    pose_arry[1] = pose.y;
+    pose_arry[2] = pose.theta;
+}
 
 int main(int argc, char **argv)
 {
@@ -23,24 +33,13 @@ int main(int argc, char **argv)
     jsk_rviz_plugins::OverlayText text;
     ros::Publisher text_pub = nh.advertise<jsk_rviz_plugins::OverlayText>("text", 1);
 
-    ros::Publisher pub_pose = nh.advertise<geometry_msgs::Pose2D>("robot_pose", 10);
-    geometry_msgs::Pose2D pose;
+    ros::Subscriber sub_pose = nh.subscribe("robot_pose", 1000, callbackFromPose);
 
     // ループ周波数を指定
     ros::Rate loop_rate(50);
 
     while (ros::ok())
     {
-        // ロボットの座標を取得
-        float pose_arry[3] = {0};
-        getRobotPose(pose_arry);
-
-        // ロボットの座標をTopicとしてPublish
-        pose.x = pose_arry[0];
-        pose.y = pose_arry[1];
-        pose.theta = pose_arry[2];
-        pub_pose.publish(pose);
-
         // 表示用文字列を生成し、ロボットの座標をrvizに表示
         std::string send_str = generateDisplayStr(pose_arry);
         configOverlayText(text, send_str);

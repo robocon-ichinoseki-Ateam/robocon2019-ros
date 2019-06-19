@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(robocon19_navigation)
+project(robocon19_localization)
 
 # Find catkin
 find_package(catkin REQUIRED)

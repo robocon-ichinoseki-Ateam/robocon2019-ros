@@ -30,7 +30,7 @@ $ sudo apt-get install ros-kinetic-joy ros-kinetic-teleop-twist-joy ros-kinetic-
 * robocon19_lrf - LRFのデータを出版する．
 * robocon19_map - mapファイルの保存
 * robocon19_mbed - mbedとの通信処理．mbedからのFloat配列のtopicをROS内通信でのtopicに直したり，mbedにデータを送信したりする
-* robocon19_navigation - 自己位置推定を行う．
+* robocon19_localization - 自己位置推定を行う．
 * robocon19_sim_stage - 2Dシミュレータのstageを使用して値の入出力を確認できる．
 
 
@@ -64,9 +64,9 @@ $ roslaunch robocon19 robocon19.launch zone:=red
 ```
 
 ## デバッグモードでの起動
-下は赤ゾーンでのデバッグの時の例．
+modeオプションをdebugにする。
 ```shell
-$ roslaunch robocon19 robocon19.launch zone:=red mode:=debug bag:=0617/1
+$ roslaunch robocon19 robocon19.launch zone:=step mode:=debug bag:=0617/1
 ```
 「bag:=hoge」と指定すると，「robocon19_bag/zone/hoge.bag」のbagファイルが読み込まれる．<br>
 そのため，bagを保存する際にはrobocon19_bagの直下にはゾーン名に対応したディレクトリを作成する必要がある．

@@ -1,4 +1,7 @@
 <launch>
+   <include file="$(find robocon19_localization)/launch/move_base.launch"/>
+
+  <include file="$(find robocon19_localization)/launch/amcl.launch"/>
 
   <node name="robocon19_localization_node" pkg="robocon19_localization" type="robocon19_localization_node" output="screen"/>
 

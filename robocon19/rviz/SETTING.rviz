@@ -5,6 +5,7 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
+        - /Polygon1
       Splitter Ratio: 0.5
     Tree Height: 435
   - Class: rviz/Selection
@@ -143,7 +144,7 @@ Visualization Manager:
       Value: true
     - Alpha: 1
       Class: rviz/Polygon
-      Color: 85; 255; 127
+      Color: 76; 230; 112
       Enabled: true
       Name: Polygon
       Topic: /move_base_node/global_costmap/footprint
@@ -193,7 +194,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 5.89433956
+      Distance: 5.19578362
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1

@@ -33,6 +33,14 @@ $ sudo apt-get install ros-kinetic-joy ros-kinetic-teleop-twist-joy ros-kinetic-
 * robocon19_localization - 自己位置推定を行う．
 * robocon19_sim_stage - 2Dシミュレータのstageを使用して値の入出力を確認できる．
 
+# graph
+## debugも表示したもの
+![rosgraph3](https://user-images.githubusercontent.com/25032035/59808086-a27a8900-9335-11e9-8127-b2b22c563ee4.png)
+
+## debugを省略したやつ
+![](https://user-images.githubusercontent.com/25032035/59808016-5e878400-9335-11e9-97d2-a9c35c3bf809.png)
+
+
 
 # 起動
 ## オプション

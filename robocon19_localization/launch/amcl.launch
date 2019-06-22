@@ -1,41 +1,97 @@
 <launch>
   <node pkg="amcl" type="amcl" name="amcl">
-    <param name="odom_model_type" value="omni"/>
-    <param name="odom_alpha5" value="0.01"/>
-    <param name="transform_tolerance" value="0.2" />
-    <param name="gui_publish_rate" value="10.0"/>
-    <param name="laser_max_beams" value="10"/>
+
+    <!-- パーティクルフィルタで使用するパーティクル数の最小値 -->
     <param name="min_particles" value="500"/>
+
+    <!-- パーティクルフィルタで使用するパーティクル数の最大値 -->
     <param name="max_particles" value="800"/>
+
+    <!-- 真の分布と推定分布の間の最大誤差 -->
     <param name="kld_err" value="0.05"/>
+
+    <!--  -->
     <param name="kld_z" value="0.99"/>
-    <param name="odom_alpha1" value="0.2"/>
-    <param name="odom_alpha2" value="0.2"/>
-    <param name="odom_alpha3" value="0.2"/>
-    <param name="odom_alpha4" value="0.2"/>
+
+    <!-- update_min_d[m]前進する毎にフィルタをアップデート -->
+    <param name="update_min_d" value="0.001"/>
+
+    <!-- update_min_a[rad]回転する毎にフィルタをアップデート -->
+    <param name="update_min_a" value="0.005"/>
+
+    <!-- パーティクルをリサンプルする頻度 何回フィルタをアップデートした後にリサンプルを行うか -->
+    <param name="resample_interval" value="1"/>
+
+    <!-- センサデータやtfなどのtimestampと現在時刻とのズレの許容範囲[sec] -->
+    <param name="transform_tolerance" value="0.2" />
+
+    <!-- ロボットの初期姿勢の分散．値が大きくなるほどばらまくパーティクルの分布，角度が広がる． -->
+    <param name="initial_cov_xx" value="0.01" />
+    <param name="initial_cov_yy" value="0.01" />
+    <param name="initial_cov_aa" value="0.01" />
+
+    <!-- rviz等で可視化するためにpublishされるトピックの周波数．[Hz] -->
+    <param name="gui_publish_rate" value="100.0"/>
+
+    <!--  正しい値（障害物までの距離）を計測してくれる確率 -->
     <param name="laser_z_hit" value="0.5"/>
+
+    <!-- 地図にはない障害物を検出して，正しい値より低い値を計測する確率． -->
     <param name="laser_z_short" value="0.05"/>
+
+    <!-- レーザの反射光を受信できない等の計測失敗により，計測値が計測可能レンジの最大値をとってしまう確率 -->
     <param name="laser_z_max" value="0.05"/>
+
+    <!-- 原因不明のランダムな雑音が発生する確率 -->
     <param name="laser_z_rand" value="0.5"/>
+
+    <!-- レーザが正しい値を計測するとき，そのモデルをガウス分布で表現する．その時の分散の値 -->
     <param name="laser_sigma_hit" value="0.2"/>
+
+    <!--  -->
     <param name="laser_lambda_short" value="0.1"/>
-    <param name="laser_lambda_short" value="0.1"/>
-    <param name="laser_model_type" value="likelihood_field"/>
+
+    <!--  -->
     <param name="laser_likelihood_max_dist" value="2.0"/>
-    <param name="update_min_d" value="0.2"/>
-    <param name="update_min_a" value="0.5"/>
-    <param name="global_frame_id" value="/map"/>
+
+
+    <!-- オドメトリ関係の設定 -->
+    <!-- オドメトリのデータタイプ -->
+    <param name="odom_model_type" value="omni"/>
+
+    <!-- ロボットの回転運動によるオドメトリの回転成分のズレ -->
+    <param name="odom_alpha1" value="0.2"/>
+
+    <!-- ロボットの回転運動によるオドメトリの並進成分のズレ -->
+    <param name="odom_alpha2" value="0.2"/>
+
+    <!-- ロボットの並進運動によるオドメトリの並進成分のズレ -->
+    <param name="odom_alpha3" value="0.2"/>
+
+    <!-- ロボットの並進運動によるオドメトリの回転成分のズレ -->
+    <param name="odom_alpha4" value="0.2"/>
+
+    <!--  -->
+    <param name="odom_alpha5" value="0.01"/>
+
+    <!-- オドメトリの原点のフレーム -->
     <param name="odom_frame_id" value="/odom"/>
+
+    <!-- ロボットのフレーム -->
     <param name="base_frame_id" value="/base_link"/>
-    <param name="resample_interval" value="2"/>
+
+    <!-- 地図のフレーム -->
+    <param name="global_frame_id" value="/map"/>
+
+
+
+    <param name="laser_max_beams" value="10"/>
+    <param name="laser_model_type" value="likelihood_field"/>
     <param name="transform_tolerance" value="0.1"/>
     <param name="recovery_alpha_slow" value="0.0"/>
     <param name="recovery_alpha_fast" value="0.0"/>
     <param name="initial_pose_x" value="0" />
     <param name="initial_pose_y" value="0" />
     <param name="initial_pose_a" value="0" />
-    <param name="initial_cov_xx" value="0.01" />
-    <param name="initial_cov_yy" value="0.01" />
-    <param name="initial_cov_aa" value="0.01" />
   </node>
 </launch>

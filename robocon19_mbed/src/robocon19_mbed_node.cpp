@@ -1,6 +1,8 @@
 #include "ros/ros.h"
 #include "std_msgs/Float32MultiArray.h"
 #include "geometry_msgs/Pose2D.h"
+#include "geometry_msgs/PoseWithCovariance.h"
+#include "geometry_msgs/PoseWithCovarianceStamped.h"
 #include <tf/transform_broadcaster.h>
 #include <nav_msgs/Odometry.h>
 
@@ -13,14 +15,30 @@ void callbackFromMbed(const std_msgs::Float32MultiArray &msg)
     odom[0] = msg.data[1];
     odom[1] = msg.data[2];
     odom[2] = msg.data[3];
+
+    static ros::Time pre_time;
+    ros::Duration ros_duration = ros::Time::now() - pre_time;
+    float dt = (float)ros_duration.sec + (float)ros_duration.nsec * pow(10, -9);
+    pre_time = ros::Time::now();
+    ROS_INFO("dt: %f[sec]\tf: %f[Hz]", dt, 1 / dt);
 }
 
-// robot_pose のコールバック
-void callbackFromPose(const geometry_msgs::Pose2D &pose)
+// クウォータニオンからオイラー角を返す
+void geometry_quat_to_rpy(double &roll, double &pitch, double &yaw, geometry_msgs::Quaternion geometry_quat)
 {
-    pose_arry[0] = pose.x;
-    pose_arry[1] = pose.y;
-    pose_arry[2] = pose.theta;
+    tf::Quaternion quat;
+    quaternionMsgToTF(geometry_quat, quat);
+    tf::Matrix3x3(quat).getRPY(roll, pitch, yaw); //rpy are Pass by Reference
+}
+
+void poseAMCLCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr &msgAMCL)
+{
+    double roll, pitch, yaw;
+    geometry_quat_to_rpy(roll, pitch, yaw, msgAMCL->pose.pose.orientation);
+
+    pose_arry[0] = msgAMCL->pose.pose.position.x;
+    pose_arry[1] = msgAMCL->pose.pose.position.y;
+    pose_arry[2] = (float)yaw;
 }
 
 int main(int argc, char **argv)
@@ -34,12 +52,13 @@ int main(int argc, char **argv)
     current_time = ros::Time::now();
 
     ros::Publisher pub_to_mbed = nh.advertise<std_msgs::Float32MultiArray>("ros_to_mbed", 100);
-    ros::Subscriber sub_pose = nh.subscribe("robot_pose", 1000, callbackFromPose);
+    ros::Subscriber sub_amcl = nh.subscribe("amcl_pose", 100, poseAMCLCallback);
 
-    ros::Rate r(30.0);
+    ros::Rate loop_rate(50.0);
 
     while (nh.ok())
     {
+
         current_time = ros::Time::now();
 
         //tf odom->base_link
@@ -65,6 +84,6 @@ int main(int argc, char **argv)
         pub_to_mbed.publish(toMbed);
 
         ros::spinOnce();
-        r.sleep();
+        loop_rate.sleep();
     }
 }

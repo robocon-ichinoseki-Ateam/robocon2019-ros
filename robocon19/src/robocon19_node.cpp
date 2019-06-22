@@ -3,6 +3,9 @@
 #include <tf/transform_listener.h>
 #include <jsk_rviz_plugins/OverlayText.h>
 #include "geometry_msgs/Pose2D.h"
+#include "geometry_msgs/PoseWithCovariance.h"
+#include "geometry_msgs/PoseWithCovarianceStamped.h"
+#include <std_msgs/Float32.h>
 #include <string>
 #include <math.h>
 #include <iostream>
@@ -10,19 +13,43 @@
 #include <sstream>
 #include <math.h>
 
-float pose_arry[3] = {0};
-
 void geometry_quat_to_rpy(double &roll, double &pitch, double &yaw, geometry_msgs::Quaternion geometry_quat);
-void getRobotPose(float return_pose[3]);
 void configOverlayText(jsk_rviz_plugins::OverlayText &t, std::string str);
 std::string generateDisplayStr(float pose[3]);
 
-// robot_pose のコールバック
-void callbackFromPose(const geometry_msgs::Pose2D &pose)
+std_msgs::Float32 linear_data, angular_data;
+
+float pose_arry[3] = {0};
+float pre_pose[3] = {0};
+// クウォータニオンからオイラー角を返す
+void geometry_quat_to_rpy(double &roll, double &pitch, double &yaw, geometry_msgs::Quaternion geometry_quat)
 {
-    pose_arry[0] = pose.x;
-    pose_arry[1] = pose.y;
-    pose_arry[2] = pose.theta;
+    tf::Quaternion quat;
+    quaternionMsgToTF(geometry_quat, quat);
+    tf::Matrix3x3(quat).getRPY(roll, pitch, yaw); //rpy are Pass by Reference
+}
+
+void poseAMCLCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr &msgAMCL)
+{
+    static ros::Time pre_time;
+    ros::Duration ros_duration = ros::Time::now() - pre_time;
+    float dt = (float)ros_duration.sec + (float)ros_duration.nsec * pow(10, -9);
+    pre_time = ros::Time::now();
+
+    double roll, pitch, yaw;
+    geometry_quat_to_rpy(roll, pitch, yaw, msgAMCL->pose.pose.orientation);
+
+    pose_arry[0] = msgAMCL->pose.pose.position.x;
+    pose_arry[1] = msgAMCL->pose.pose.position.y;
+    pose_arry[2] = (float)yaw;
+
+    float dx = (pose_arry[0] - pre_pose[0]);
+    float dy = (pose_arry[1] - pre_pose[1]);
+    linear_data.data = sqrt(dx * dx + dy * dy) / dt;
+    angular_data.data = (pose_arry[2] - pre_pose[2]) / dt;
+
+    for (int i = 0; i < 3; i++)
+        pre_pose[i] = pose_arry[i];
 }
 
 int main(int argc, char **argv)
@@ -33,13 +60,20 @@ int main(int argc, char **argv)
     jsk_rviz_plugins::OverlayText text;
     ros::Publisher text_pub = nh.advertise<jsk_rviz_plugins::OverlayText>("text", 1);
 
-    ros::Subscriber sub_pose = nh.subscribe("robot_pose", 1000, callbackFromPose);
+    ros::Publisher linear_pub = nh.advertise<std_msgs::Float32>("linear_v", 10);
+    ros::Publisher angular_pub = nh.advertise<std_msgs::Float32>("angular_v", 10);
+
+    // ros::Subscriber sub_pose = nh.subscribe("robot_pose", 1000, callbackFromPose);
+    ros::Subscriber sub_amcl = nh.subscribe("amcl_pose", 100, poseAMCLCallback);
 
     // ループ周波数を指定
-    ros::Rate loop_rate(50);
+    ros::Rate loop_rate(100);
 
     while (ros::ok())
     {
+        linear_pub.publish(linear_data);
+        angular_pub.publish(angular_data);
+
         // 表示用文字列を生成し、ロボットの座標をrvizに表示
         std::string send_str = generateDisplayStr(pose_arry);
         configOverlayText(text, send_str);
@@ -49,45 +83,6 @@ int main(int argc, char **argv)
         loop_rate.sleep();
     }
     return 0;
-}
-
-// クウォータニオンからオイラー角を返す
-void geometry_quat_to_rpy(double &roll, double &pitch, double &yaw, geometry_msgs::Quaternion geometry_quat)
-{
-    tf::Quaternion quat;
-    quaternionMsgToTF(geometry_quat, quat);
-    tf::Matrix3x3(quat).getRPY(roll, pitch, yaw); //rpy are Pass by Reference
-}
-
-// TFを読んでロボットの座標と角度を返す
-void getRobotPose(float return_pose[3])
-{
-    tf::TransformListener ln;
-
-    geometry_msgs::PoseStamped source_pose;
-    source_pose.header.frame_id = "base_link";
-    source_pose.header.stamp = ros::Time(0);
-    source_pose.pose.orientation.w = 1.0;
-
-    geometry_msgs::PoseStamped target_pose;
-    std::string target_frame = "map";
-
-    try
-    {
-        ln.waitForTransform(source_pose.header.frame_id, target_frame, ros::Time(0), ros::Duration(1.0));
-        ln.transformPose(target_frame, source_pose, target_pose);
-    }
-    catch (...)
-    {
-        ROS_INFO("tf error");
-    }
-
-    double roll, pitch, yaw;
-    geometry_quat_to_rpy(roll, pitch, yaw, target_pose.pose.orientation);
-
-    return_pose[0] = target_pose.pose.position.x;
-    return_pose[1] = target_pose.pose.position.y;
-    return_pose[2] = yaw;
 }
 
 // rvizに表示するテキストの設定

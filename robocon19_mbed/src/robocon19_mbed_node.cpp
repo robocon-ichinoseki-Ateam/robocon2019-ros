@@ -1,24 +1,28 @@
 #include "../../util/util.h"
 
-double odom[3] = {0.0};
 float pose_arry[3] = {0.0};
 
-// mbed_to_ros のコールバック
+geometry_msgs::TransformStamped odom;
+std_msgs::Bool needs_reset_pose;
+
+// Mbedからのコールバック
 void callbackFromMbed(const std_msgs::Float32MultiArray &msg)
 {
-    odom[0] = msg.data[1];
-    odom[1] = msg.data[2];
-    odom[2] = msg.data[3];
-    measureLooptime();
+    needs_reset_pose.data = (bool)msg.data[0];
+    odom.transform.translation.x = msg.data[1];
+    odom.transform.translation.y = msg.data[2];
+    odom.transform.rotation = tf::createQuaternionMsgFromYaw(msg.data[3]);
+    // measureLooptime();
 }
 
-void poseAMCLCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr &msgAMCL)
+// amclからのコールバック
+void callbackAmcl(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr &msg_amcl)
 {
     double roll, pitch, yaw;
-    geometry_quat_to_rpy(roll, pitch, yaw, msgAMCL->pose.pose.orientation);
+    geometry_quat_to_rpy(roll, pitch, yaw, msg_amcl->pose.pose.orientation);
 
-    pose_arry[0] = msgAMCL->pose.pose.position.x;
-    pose_arry[1] = msgAMCL->pose.pose.position.y;
+    pose_arry[0] = msg_amcl->pose.pose.position.x;
+    pose_arry[1] = msg_amcl->pose.pose.position.y;
     pose_arry[2] = (float)yaw;
 }
 
@@ -26,34 +30,31 @@ int main(int argc, char **argv)
 {
     ros::init(argc, argv, "robocon19_mbed_node");
     ros::NodeHandle nh;
+    ros::Rate loop_rate(50.0);
+
+    // mbedからのデータ受信者
     ros::Subscriber sub_from_mbed = nh.subscribe("mbed_to_ros", 1000, callbackFromMbed);
 
+    // amclからのデータ受信者
+    ros::Subscriber sub_amcl = nh.subscribe("amcl_pose", 100, callbackAmcl);
+
+    // オドメトリの配信者
     tf::TransformBroadcaster odom_broadcaster;
-    ros::Time current_time;
-    current_time = ros::Time::now();
+    odom.header.frame_id = "odom";
+    odom.child_frame_id = "base_link";
 
+    // Mbedへのデータ配信者
     ros::Publisher pub_to_mbed = nh.advertise<std_msgs::Float32MultiArray>("ros_to_mbed", 100);
-    ros::Subscriber sub_amcl = nh.subscribe("amcl_pose", 100, poseAMCLCallback);
 
-    ros::Rate loop_rate(50.0);
+    // 自己位置リセット信号の配信者
+    ros::Publisher pub_reset = nh.advertise<std_msgs::Bool>("reset", 100);
 
     while (nh.ok())
     {
+        // ROS_INFO("%d", needs_reset_pose.data);
 
-        current_time = ros::Time::now();
-
-        //tf odom->base_link
-        geometry_msgs::TransformStamped odom_trans;
-        odom_trans.header.stamp = current_time;
-        odom_trans.header.frame_id = "odom";
-        odom_trans.child_frame_id = "base_link";
-
-        odom_trans.transform.translation.x = odom[0];
-        odom_trans.transform.translation.y = odom[1];
-        odom_trans.transform.translation.z = 0.0;
-        geometry_msgs::Quaternion odom_quat = tf::createQuaternionMsgFromYaw(odom[2]);
-        odom_trans.transform.rotation = odom_quat;
-        odom_broadcaster.sendTransform(odom_trans);
+        odom.header.stamp = ros::Time::now();
+        odom_broadcaster.sendTransform(odom);
 
         // mbed へのデータ送信
         std_msgs::Float32MultiArray toMbed;
@@ -63,6 +64,9 @@ int main(int argc, char **argv)
         toMbed.data[2] = pose_arry[1];
         toMbed.data[3] = pose_arry[2];
         pub_to_mbed.publish(toMbed);
+
+        // リセット信号の送信
+        pub_reset.publish(needs_reset_pose);
 
         ros::spinOnce();
         loop_rate.sleep();

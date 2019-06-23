@@ -1,42 +1,49 @@
 #include "../../util/util.h"
 
-// void poseAMCLCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr &msgAMCL)
-// {
-//     float roll, pitch, yaw;
-//     geometry_quat_to_rpy(roll, pitch, yaw, msgAMCL->pose.pose.orientation);
+bool needs_reset = false;
 
-//     pose_arry[0] = msgAMCL->pose.pose.position.x;
-//     pose_arry[1] = msgAMCL->pose.pose.position.y;
-//     pose_arry[2] = (float)yaw;
-// }
+void callbackReset(const std_msgs::Bool &msg_reset)
+{
+    needs_reset = msg_reset.data | needs_reset;
+}
+
+// 初期化位置の生成
+geometry_msgs::PoseWithCovarianceStamped
+generateInitialpose(float x, float y, float yaw)
+{
+    geometry_msgs::PoseWithCovarianceStamped pose;
+    pose.header.frame_id = "map";
+    pose.pose.pose.position.x = x;
+    pose.pose.pose.position.y = y;
+    pose.pose.pose.position.z = 0;
+    pose.pose.pose.orientation = toQuaternion(0, 0, yaw);
+
+    return pose;
+}
 
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "robocon19_localization_node");
     ros::NodeHandle nh;
-
-    // ros::Subscriber sub_from_mbed = nh.subscribe("mbed_to_ros", 1000, callbackFromMbed);
-
-    ros::Publisher pub_initialpose = nh.advertise<geometry_msgs::PoseWithCovarianceStamped>("initialpose", 10);
-
-    geometry_msgs::PoseWithCovarianceStamped initialpose;
-    initialpose.header.frame_id = "map";
-    initialpose.pose.pose.position.x = 0;
-    initialpose.pose.pose.position.y = 0;
-    initialpose.pose.pose.position.z = 0;
-    initialpose.pose.pose.orientation = toQuaternion(0, 0, -45 * M_PI / 180);
-
-    // ループ周波数を指定
     ros::Rate loop_rate(100);
+
+    // amclからのデータ受信者
+    ros::Subscriber sub_amcl = nh.subscribe("reset", 100, callbackReset);
+
+    // 位置初期化データの送信者
+    ros::Publisher pub_initialpose = nh.advertise<geometry_msgs::PoseWithCovarianceStamped>("initialpose", 10);
 
     while (ros::ok())
     {
-        ros::Duration(10).sleep();
-        ROS_INFO("!!");
-        pub_initialpose.publish(initialpose);
+        if (needs_reset)
+        {
+            pub_initialpose.publish(generateInitialpose(0, 0, 0));
+            needs_reset = false;
+        }
 
         ros::spinOnce();
         loop_rate.sleep();
     }
+
     return 0;
 }

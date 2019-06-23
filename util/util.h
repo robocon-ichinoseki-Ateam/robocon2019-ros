@@ -5,6 +5,7 @@
 #include <sstream>
 #include <string>
 
+#include <std_msgs/Bool.h>
 #include <std_msgs/Float32.h>
 #include <std_msgs/Float32MultiArray.h>
 

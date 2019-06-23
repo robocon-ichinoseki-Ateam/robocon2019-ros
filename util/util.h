@@ -6,6 +6,7 @@
 #include <string>
 
 #include <std_msgs/Bool.h>
+#include <std_msgs/Int32MultiArray.h>
 #include <std_msgs/Float32.h>
 #include <std_msgs/Float32MultiArray.h>
 
@@ -20,6 +21,7 @@
 #include <tf/transform_broadcaster.h>
 
 #include <jsk_rviz_plugins/OverlayText.h>
+#include <visualization_msgs/MarkerArray.h>
 
 // クウォータニオンからオイラー角を返す
 void geometry_quat_to_rpy(double &roll, double &pitch, double &yaw, geometry_msgs::Quaternion geometry_quat)

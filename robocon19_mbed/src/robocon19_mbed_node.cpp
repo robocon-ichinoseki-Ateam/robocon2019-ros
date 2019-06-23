@@ -1,6 +1,7 @@
 #include "../../util/util.h"
 
 float pose_arry[3] = {0.0};
+int line_sensor_arry[2] = {0};
 
 geometry_msgs::TransformStamped odom;
 std_msgs::Bool needs_reset_pose;
@@ -12,6 +13,8 @@ void callbackFromMbed(const std_msgs::Float32MultiArray &msg)
     odom.transform.translation.x = msg.data[1];
     odom.transform.translation.y = msg.data[2];
     odom.transform.rotation = tf::createQuaternionMsgFromYaw(msg.data[3]);
+    line_sensor_arry[0] = msg.data[4];
+    line_sensor_arry[1] = msg.data[5];
     // measureLooptime();
 }
 
@@ -49,6 +52,9 @@ int main(int argc, char **argv)
     // 自己位置リセット信号の配信者
     ros::Publisher pub_reset = nh.advertise<std_msgs::Bool>("reset", 100);
 
+    // ラインセンサ信号の配信者
+    ros::Publisher pub_line_sensor = nh.advertise<std_msgs::Int32MultiArray>("line_sensor", 100);
+
     while (nh.ok())
     {
         // ROS_INFO("%d", needs_reset_pose.data);
@@ -67,6 +73,13 @@ int main(int argc, char **argv)
 
         // リセット信号の送信
         pub_reset.publish(needs_reset_pose);
+
+        // ラインセンサのデータ送信
+        std_msgs::Int32MultiArray sensor_data;
+        sensor_data.data.resize(2);
+        sensor_data.data[0] = line_sensor_arry[0];
+        sensor_data.data[1] = line_sensor_arry[1];
+        pub_line_sensor.publish(sensor_data);
 
         ros::spinOnce();
         loop_rate.sleep();

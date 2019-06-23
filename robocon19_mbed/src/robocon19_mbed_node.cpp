@@ -16,11 +16,11 @@ void callbackFromMbed(const std_msgs::Float32MultiArray &msg)
     odom[1] = msg.data[2];
     odom[2] = msg.data[3];
 
-    static ros::Time pre_time;
-    ros::Duration ros_duration = ros::Time::now() - pre_time;
-    float dt = (float)ros_duration.sec + (float)ros_duration.nsec * pow(10, -9);
-    pre_time = ros::Time::now();
-    ROS_INFO("dt: %f[sec]\tf: %f[Hz]", dt, 1 / dt);
+    // static ros::Time pre_time;
+    // ros::Duration ros_duration = ros::Time::now() - pre_time;
+    // float dt = (float)ros_duration.sec + (float)ros_duration.nsec * pow(10, -9);
+    // pre_time = ros::Time::now();
+    // ROS_INFO("dt: %f[sec]\tf: %f[Hz]", dt, 1 / dt);
 }
 
 // クウォータニオンからオイラー角を返す

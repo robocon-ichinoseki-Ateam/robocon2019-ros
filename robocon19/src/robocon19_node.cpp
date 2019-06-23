@@ -1,19 +1,5 @@
-#include <ros/ros.h>
-#include <geometry_msgs/PoseStamped.h>
-#include <tf/transform_listener.h>
-#include <jsk_rviz_plugins/OverlayText.h>
-#include "geometry_msgs/Pose2D.h"
-#include "geometry_msgs/PoseWithCovariance.h"
-#include "geometry_msgs/PoseWithCovarianceStamped.h"
-#include <std_msgs/Float32.h>
-#include <string>
-#include <math.h>
-#include <iostream>
-#include <stdio.h>
-#include <sstream>
-#include <math.h>
+#include "../../util/util.h"
 
-void geometry_quat_to_rpy(double &roll, double &pitch, double &yaw, geometry_msgs::Quaternion geometry_quat);
 void configOverlayText(jsk_rviz_plugins::OverlayText &t, std::string str);
 std::string generateDisplayStr(float pose[3]);
 
@@ -21,13 +7,6 @@ std_msgs::Float32 linear_data, angular_data;
 
 float pose_arry[3] = {0};
 float pre_pose[3] = {0};
-// クウォータニオンからオイラー角を返す
-void geometry_quat_to_rpy(double &roll, double &pitch, double &yaw, geometry_msgs::Quaternion geometry_quat)
-{
-    tf::Quaternion quat;
-    quaternionMsgToTF(geometry_quat, quat);
-    tf::Matrix3x3(quat).getRPY(roll, pitch, yaw); //rpy are Pass by Reference
-}
 
 void poseAMCLCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr &msgAMCL)
 {

@@ -1,16 +1,4 @@
-#include <ros/ros.h>
-#include <geometry_msgs/PoseStamped.h>
-#include <tf/transform_listener.h>
-#include <jsk_rviz_plugins/OverlayText.h>
-#include "geometry_msgs/Pose2D.h"
-#include "geometry_msgs/PoseWithCovariance.h"
-#include "geometry_msgs/PoseWithCovarianceStamped.h"
-#include <string>
-#include <math.h>
-#include <iostream>
-#include <stdio.h>
-#include <sstream>
-#include <math.h>
+#include "../../util/util.h"
 
 // void poseAMCLCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr &msgAMCL)
 // {
@@ -21,24 +9,6 @@
 //     pose_arry[1] = msgAMCL->pose.pose.position.y;
 //     pose_arry[2] = (float)yaw;
 // }
-
-geometry_msgs::Quaternion toQuaternion(float roll, float pitch, float yaw)
-{
-    float cosRoll = cos(roll / 2.0);
-    float sinRoll = sin(roll / 2.0);
-    float cosPitch = cos(pitch / 2.0);
-    float sinPitch = sin(pitch / 2.0);
-    float cosYaw = cos(yaw / 2.0);
-    float sinYaw = sin(yaw / 2.0);
-
-    geometry_msgs::Quaternion q;
-    q.x = sinRoll * cosPitch * cosYaw - cosRoll * sinPitch * sinYaw;
-    q.y = cosRoll * sinPitch * cosYaw + sinRoll * cosPitch * sinYaw;
-    q.z = cosRoll * cosPitch * sinYaw - sinRoll * sinPitch * cosYaw;
-    q.w = cosRoll * cosPitch * cosYaw + sinRoll * sinPitch * sinYaw;
-
-    return q;
-}
 
 int main(int argc, char **argv)
 {

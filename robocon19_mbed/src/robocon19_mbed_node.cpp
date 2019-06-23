@@ -1,10 +1,4 @@
-#include "ros/ros.h"
-#include "std_msgs/Float32MultiArray.h"
-#include "geometry_msgs/Pose2D.h"
-#include "geometry_msgs/PoseWithCovariance.h"
-#include "geometry_msgs/PoseWithCovarianceStamped.h"
-#include <tf/transform_broadcaster.h>
-#include <nav_msgs/Odometry.h>
+#include "../../util/util.h"
 
 double odom[3] = {0.0};
 float pose_arry[3] = {0.0};
@@ -15,20 +9,7 @@ void callbackFromMbed(const std_msgs::Float32MultiArray &msg)
     odom[0] = msg.data[1];
     odom[1] = msg.data[2];
     odom[2] = msg.data[3];
-
-    // static ros::Time pre_time;
-    // ros::Duration ros_duration = ros::Time::now() - pre_time;
-    // float dt = (float)ros_duration.sec + (float)ros_duration.nsec * pow(10, -9);
-    // pre_time = ros::Time::now();
-    // ROS_INFO("dt: %f[sec]\tf: %f[Hz]", dt, 1 / dt);
-}
-
-// クウォータニオンからオイラー角を返す
-void geometry_quat_to_rpy(double &roll, double &pitch, double &yaw, geometry_msgs::Quaternion geometry_quat)
-{
-    tf::Quaternion quat;
-    quaternionMsgToTF(geometry_quat, quat);
-    tf::Matrix3x3(quat).getRPY(roll, pitch, yaw); //rpy are Pass by Reference
+    measureLooptime();
 }
 
 void poseAMCLCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr &msgAMCL)

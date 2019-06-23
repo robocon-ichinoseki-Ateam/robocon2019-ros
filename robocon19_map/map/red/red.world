@@ -23,7 +23,7 @@ define erratic position
   origin [0 0 0 0]
   gui_nose 1
   drive "omni"
-  topurg(pose [ 0.3 0 -0.3 0 ])
+  topurg(pose [ 0.0 -0.3 -0.3 -90 ])
 )
 
 define floorplan model
@@ -68,5 +68,5 @@ floorplan
 )
 
 # throw in a robot
-erratic( pose [4.9 0.6 0 90 ] name "era" color "red")
-block( pose [0.6 2.4 0 0] color "green")
+erratic( pose [0.6 1.8 0.0 0.0 ] name "era" color "red")
+#block( pose [0.6 2.4 0 0] color "green")

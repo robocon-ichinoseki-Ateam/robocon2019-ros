@@ -16,7 +16,12 @@
 #include <geometry_msgs/PoseWithCovariance.h>
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
 
+#include <sensor_msgs/LaserScan.h>
+
 #include <nav_msgs/Odometry.h>
+#include <nav_msgs/OccupancyGrid.h>
+
+#include <costmap_2d/costmap_2d_ros.h>
 
 #include <tf/transform_listener.h>
 #include <tf/transform_broadcaster.h>

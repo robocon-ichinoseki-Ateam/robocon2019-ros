@@ -108,11 +108,11 @@ int main(int argc, char **argv)
     ros::Subscriber sub_amcl = nh.subscribe("amcl_pose", 100, callbackAmcl);
     ros::Subscriber sub_line_sensor = nh.subscribe("line_sensor", 100, callbackLinesensor);
 
-    ros::Publisher linear_pub = nh.advertise<std_msgs::Float32>("linear_v", 10);
-    ros::Publisher angular_pub = nh.advertise<std_msgs::Float32>("angular_v", 10);
-    ros::Publisher pub_line_sensor_x = nh.advertise<visualization_msgs::MarkerArray>("line_sensor_marker_x", 1);
-    ros::Publisher pub_line_sensor_y = nh.advertise<visualization_msgs::MarkerArray>("line_sensor_marker_y", 1);
-    ros::Publisher text_pub = nh.advertise<jsk_rviz_plugins::OverlayText>("text", 1);
+    ros::Publisher text_pub = nh.advertise<jsk_rviz_plugins::OverlayText>("display_rviz/text", 1);
+    ros::Publisher linear_pub = nh.advertise<std_msgs::Float32>("display_rviz/linear_v", 10);
+    ros::Publisher angular_pub = nh.advertise<std_msgs::Float32>("display_rviz/angular_v", 10);
+    ros::Publisher pub_line_sensor_x = nh.advertise<visualization_msgs::MarkerArray>("line_sensor_marker/x", 1);
+    ros::Publisher pub_line_sensor_y = nh.advertise<visualization_msgs::MarkerArray>("line_sensor_marker/y", 1);
 
     while (ros::ok())
     {

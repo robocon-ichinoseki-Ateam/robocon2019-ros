@@ -9,6 +9,7 @@
 #include <std_msgs/Int32MultiArray.h>
 #include <std_msgs/Float32.h>
 #include <std_msgs/Float32MultiArray.h>
+#include <std_msgs/String.h>
 
 #include <geometry_msgs/Pose2D.h>
 #include <geometry_msgs/PoseStamped.h>
@@ -19,6 +20,8 @@
 
 #include <tf/transform_listener.h>
 #include <tf/transform_broadcaster.h>
+
+#include <diagnostic_updater/diagnostic_updater.h>
 
 #include <jsk_rviz_plugins/OverlayText.h>
 #include <visualization_msgs/MarkerArray.h>

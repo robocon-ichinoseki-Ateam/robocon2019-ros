@@ -1,0 +1,5 @@
+<launch>
+
+  <node name="robocon19_diagnostics_node" pkg="robocon19_diagnostics" type="robocon19_diagnostics_node" output="screen"/>
+
+</launch>

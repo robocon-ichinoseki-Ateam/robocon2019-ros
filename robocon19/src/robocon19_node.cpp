@@ -116,9 +116,7 @@ int main(int argc, char **argv)
 
     while (ros::ok())
     {
-        ROS_INFO("%d", line_sensor[0]);
         float attach_pose[2][2] = {{0, -0.25}, {0.25, 0}};
-
         pub_line_sensor_x.publish(generateDisplayLinesensor(0, attach_pose[0], line_sensor[0]));
         pub_line_sensor_y.publish(generateDisplayLinesensor(1, attach_pose[1], line_sensor[1]));
 

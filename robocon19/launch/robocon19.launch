@@ -35,6 +35,8 @@
 
   <include file="$(find robocon19_localization)/launch/robocon19_localization.launch"/>
 
+  <include file="$(find robocon19_diagnostics)/launch/robocon19_diagnostics.launch"/>
+
   <!-- レーザーオドメトリの起動（オドメータ不使用時） -->
   <!-- <include file="$(find robocon19_laser_odometry)/launch/laser_odometry.launch"/> -->
 

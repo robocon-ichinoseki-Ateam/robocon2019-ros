@@ -183,14 +183,14 @@ Visualization Manager:
       foreground alpha: 0.699999988
       foreground color: 25; 255; 240
       height: 128
-      left: 10
+      left: 160
       linewidth: 1
       max color: 255; 0; 0
       max value: 1
       min value: -1
       show caption: true
       text size: 12
-      top: 115
+      top: 10
       update interval: 0.0399999991
       width: 128
     - Buffer length: 100
@@ -208,14 +208,14 @@ Visualization Manager:
       foreground alpha: 0.699999988
       foreground color: 25; 255; 240
       height: 128
-      left: 10
+      left: 300
       linewidth: 1
       max color: 255; 0; 0
       max value: 1
       min value: -1
       show caption: true
       text size: 12
-      top: 265
+      top: 10
       update interval: 0.0399999991
       width: 128
     - Class: rviz/MarkerArray
@@ -234,6 +234,42 @@ Visualization Manager:
         robocon19_node: true
       Queue Size: 100
       Value: true
+    - Class: jsk_rviz_plugin/OverlayDiagnostic
+      Enabled: true
+      Name: OverlayDiagnostic
+      Topic: /diagnostics
+      Value: true
+      alpha: 0.800000012
+      diagnostics namespace: "robocon19_diagnostics_node: robot"
+      left: 10
+      size: 128
+      stall duration: 5
+      top: 128
+      type: SAC
+    - Class: jsk_rviz_plugin/OverlayDiagnostic
+      Enabled: true
+      Name: OverlayDiagnostic
+      Topic: /diagnostics
+      Value: true
+      alpha: 0.800000012
+      diagnostics namespace: "robocon19_diagnostics_node: AMCL"
+      left: 10
+      size: 128
+      stall duration: 5
+      top: 250
+      type: EVA
+    - Class: jsk_rviz_plugin/OverlayDiagnostic
+      Enabled: true
+      Name: OverlayDiagnostic
+      Topic: /diagnostics
+      Value: true
+      alpha: 0.800000012
+      diagnostics namespace: "robocon19_diagnostics_node: LineSensor"
+      left: 10
+      size: 128
+      stall duration: 5
+      top: 280
+      type: EVA
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -259,7 +295,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 6.15126801
+      Distance: 6.69243288
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
@@ -277,7 +313,7 @@ Visualization Manager:
       Pitch: 1.56979632
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.71859503
+      Yaw: 4.7135973
     Saved:
       - Class: rviz/Orbit
         Distance: 10

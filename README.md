@@ -15,6 +15,11 @@ kinetic版は以下のコマンドでインストールできる．
 $ sudo apt-get install -y ros-kinetic-jsk-visualization
 ```
 
+PS3コントローラを接続する
+``` shell
+$ sudo apt-get install ros-kinetic-joy
+```
+
 その他、自己位置推定に必要なライブラリ群は以下のコマンドでインストールできる．
 ```shell
 $ sudo apt update

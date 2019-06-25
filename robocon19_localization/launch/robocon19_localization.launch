@@ -1,5 +1,6 @@
 <launch>
-   <include file="$(find robocon19_localization)/launch/move_base.launch"/>
+
+  <include file="$(find robocon19_localization)/launch/move_base.launch"/>
 
   <include file="$(find robocon19_localization)/launch/amcl.launch"/>
 

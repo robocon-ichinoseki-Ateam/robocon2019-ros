@@ -8,7 +8,7 @@ define topurg ranger
 (
     sensor(
         range [ 0.0  10.0 ]
-        fov 270.25
+        fov 360
         samples 1081
     )
 
@@ -23,7 +23,7 @@ define erratic position
   origin [0 0 0 0]
   gui_nose 1
   drive "omni"
-  topurg(pose [ 0.0 -0.3 -0.3 -90 ])
+  topurg(pose [ 0.0 -0.3 -0.3 90 ])
 )
 
 define floorplan model

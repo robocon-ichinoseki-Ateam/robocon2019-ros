@@ -11,8 +11,6 @@
     <param name="port" value="/dev/ttyACM0"/>
   </node>
 
-  <include file="$(find robocon19_laser_filters)/launch/laser_filter.launch"/>
-
   <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping">
     <param name="scan" value="scan"/>
     <param name="xmin" value="-10"/>

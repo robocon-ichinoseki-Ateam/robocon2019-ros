@@ -11,11 +11,13 @@
 #include <std_msgs/Float32MultiArray.h>
 #include <std_msgs/String.h>
 
+#include <geometry_msgs/Twist.h>
 #include <geometry_msgs/Pose2D.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/PoseWithCovariance.h>
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
 
+#include <sensor_msgs/Joy.h>
 #include <sensor_msgs/LaserScan.h>
 
 #include <nav_msgs/Odometry.h>

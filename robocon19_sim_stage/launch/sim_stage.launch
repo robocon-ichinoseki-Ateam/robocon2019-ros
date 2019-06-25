@@ -4,11 +4,12 @@
   <!-- ゾーンの取得 -->
   <arg name="zone" default="red"/>
 
-  <remap from="scan" to="base_scan" />
+  <remap from="base_scan" to="scan" />
 
   <include file="$(find robocon19_localization)/launch/move_base.launch"/>
   <include file="$(find robocon19_localization)/launch/amcl.launch"/>
-
+  <node name="robocon19_sim_stage_node" pkg="robocon19_sim_stage" type="robocon19_sim_stage_node" output="screen"/>
+  <node name="joy_node" pkg="joy" type="joy_node" />
 
   <!-- 赤ゾーンでマップを起動 -->
   <group if="$(eval zone=='red')">

@@ -53,7 +53,7 @@ int main(int argc, char **argv)
     ros::Publisher pub_reset = nh.advertise<std_msgs::Bool>("reset", 100);
 
     // ラインセンサ信号の配信者
-    ros::Publisher pub_line_sensor = nh.advertise<std_msgs::Int32MultiArray>("line_sensor", 100);
+    // ros::Publisher pub_line_sensor = nh.advertise<std_msgs::Int32MultiArray>("line_sensor", 100);
 
     while (nh.ok())
     {
@@ -74,12 +74,12 @@ int main(int argc, char **argv)
         // リセット信号の送信
         pub_reset.publish(needs_reset_pose);
 
-        // ラインセンサのデータ送信
-        std_msgs::Int32MultiArray sensor_data;
-        sensor_data.data.resize(2);
-        sensor_data.data[0] = line_sensor_arry[0];
-        sensor_data.data[1] = line_sensor_arry[1];
-        pub_line_sensor.publish(sensor_data);
+        // // ラインセンサのデータ送信
+        // std_msgs::Int32MultiArray sensor_data;
+        // sensor_data.data.resize(2);
+        // sensor_data.data[0] = line_sensor_arry[0];
+        // sensor_data.data[1] = line_sensor_arry[1];
+        // pub_line_sensor.publish(sensor_data);
 
         ros::spinOnce();
         loop_rate.sleep();

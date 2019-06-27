@@ -3,7 +3,7 @@
     <param name="port"         type="string" value="/dev/ydlidar"/>
     <!-- <param name="baudrate"     type="int"    value="115200"/> -->
     <param name="baudrate"     type="int"    value="12800"/>
-    <param name="frame_id"     type="string" value="laser"/>
+    <param name="frame_id"     type="string" value="base_laser_link"/>
     <param name="low_exposure"  type="bool"   value="false"/>
     <param name="resolution_fixed"    type="bool"   value="true"/>
     <param name="auto_reconnect"    type="bool"   value="true"/>

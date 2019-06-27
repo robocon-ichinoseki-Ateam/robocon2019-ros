@@ -32,10 +32,24 @@ void callbackAmcl(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr &msgA
         pre_pose[i] = pose_arry[i];
 }
 
-void callbackLinesensor(const std_msgs::Int32MultiArray &msg_line_sensor)
+void callbackLineSensor_x(const std_msgs::Float32MultiArray &msg_line_sensor)
 {
-    line_sensor[0] = msg_line_sensor.data[0];
-    line_sensor[1] = msg_line_sensor.data[1];
+    line_sensor[0] = 0;
+    for (int i = 0; i < 7; i++)
+    {
+        int on_line = (msg_line_sensor.data[i] < 0.4) ? 1 : 0;
+        line_sensor[0] += on_line << i;
+    }
+}
+
+void callbackLineSensor_y(const std_msgs::Float32MultiArray &msg_line_sensor)
+{
+    line_sensor[1] = 0;
+    for (int i = 0; i < 7; i++)
+    {
+        int on_line = (msg_line_sensor.data[i] < 0.4) ? 1 : 0;
+        line_sensor[1] += on_line << i;
+    }
 }
 
 visualization_msgs::MarkerArray generateDisplayLinesensor(int sensor_id, float attach_pose[2], int snesor_val)
@@ -43,7 +57,7 @@ visualization_msgs::MarkerArray generateDisplayLinesensor(int sensor_id, float a
     visualization_msgs::MarkerArray m_a;
 
     const float interval = 0.015;
-    const int s_num = 8;
+    const int s_num = 7;
 
     m_a.markers.resize(s_num);
 
@@ -101,12 +115,13 @@ int main(int argc, char **argv)
 {
     ros::init(argc, argv, "robocon19_node");
     ros::NodeHandle nh;
-    ros::Rate loop_rate(100);
+    ros::Rate loop_rate(50);
 
     jsk_rviz_plugins::OverlayText text;
 
     ros::Subscriber sub_amcl = nh.subscribe("amcl_pose", 100, callbackAmcl);
-    ros::Subscriber sub_line_sensor = nh.subscribe("line_sensor", 100, callbackLinesensor);
+    ros::Subscriber sub_line_sensor_x = nh.subscribe("line_sensor/x", 100, callbackLineSensor_x);
+    ros::Subscriber sub_line_sensor_y = nh.subscribe("line_sensor/y", 100, callbackLineSensor_y);
 
     ros::Publisher text_pub = nh.advertise<jsk_rviz_plugins::OverlayText>("display_rviz/text", 1);
     ros::Publisher linear_pub = nh.advertise<std_msgs::Float32>("display_rviz/linear_v", 10);

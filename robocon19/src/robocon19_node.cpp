@@ -20,7 +20,7 @@ void callbackLineSensor_x(const std_msgs::Float32MultiArray &msg_line_sensor)
     line_sensor[0] = 0;
     for (int i = 0; i < 7; i++)
     {
-        int on_line = (msg_line_sensor.data[i] < 0.4) ? 1 : 0;
+        int on_line = (msg_line_sensor.data[i] < 0.6) ? 1 : 0;
         line_sensor[0] += on_line << i;
     }
 }
@@ -30,7 +30,7 @@ void callbackLineSensor_y(const std_msgs::Float32MultiArray &msg_line_sensor)
     line_sensor[1] = 0;
     for (int i = 0; i < 7; i++)
     {
-        int on_line = (msg_line_sensor.data[i] < 0.4) ? 1 : 0;
+        int on_line = (msg_line_sensor.data[i] < 0.6) ? 1 : 0;
         line_sensor[1] += on_line << i;
     }
 }

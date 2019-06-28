@@ -3,9 +3,9 @@
   <arg name="mode" default="normal"/>
   <arg name="zone" default="test_field"/>
   <arg name="bag" default="1"/>
+  <arg name="record" default="false"/>
 
-
-  <node pkg="tf" type="static_transform_publisher" name="base_link_to_base_laser_link" args="0 -0.29 0 0 0 0.707 0.707 /base_link /base_laser_link 40" />
+  <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" args="0 -0.29 0 0 0 0.707 0.707 /base_link /base_laser_link 40" />
 
   <!-- <node pkg="tf" type="static_transform_publisher" name="map_to_odom" args="0.0 0.0 0.0 0.0 0.0 0 1 /map /odom 40" /> -->
 
@@ -27,6 +27,9 @@
     <node pkg="rosserial_python" type="serial_node.py" name="serial_node_1">
       <param name="port" value="/dev/ttyACM1"/>
     </node>
+    <!-- <group if="$(eval record=='true')">
+      <node pkg="rosbag" type="record" name="rosbag_record"  args="record -o /scan /mbed_to_ros /line_sensor/x /line_sensor/y"/>
+    </group> -->
   </group>
 
   <group if="$(eval mode=='debug')">

@@ -15,26 +15,6 @@ void callbackAmcl(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr &msgA
     pose_arry[2] = tf::getYaw(msgAMCL->pose.pose.orientation);
 }
 
-void callbackLineSensor_x(const std_msgs::Float32MultiArray &msg_line_sensor)
-{
-    line_sensor[0] = 0;
-    for (int i = 0; i < 7; i++)
-    {
-        int on_line = (msg_line_sensor.data[i] < 0.6) ? 1 : 0;
-        line_sensor[0] += on_line << i;
-    }
-}
-
-void callbackLineSensor_y(const std_msgs::Float32MultiArray &msg_line_sensor)
-{
-    line_sensor[1] = 0;
-    for (int i = 0; i < 7; i++)
-    {
-        int on_line = (msg_line_sensor.data[i] < 0.6) ? 1 : 0;
-        line_sensor[1] += on_line << i;
-    }
-}
-
 visualization_msgs::MarkerArray generateDisplayLinesensor(int sensor_id, float attach_pose[2], int snesor_val)
 {
     visualization_msgs::MarkerArray m_a;
@@ -94,6 +74,16 @@ visualization_msgs::MarkerArray generateDisplayLinesensor(int sensor_id, float a
     return m_a;
 }
 
+void callbackLineSensor_x(const std_msgs::Int32 &msg_line_sensor)
+{
+    line_sensor[0] = msg_line_sensor.data;
+}
+
+void callbackLineSensor_y(const std_msgs::Int32 &msg_line_sensor)
+{
+    line_sensor[1] = msg_line_sensor.data;
+}
+
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "robocon19_node");
@@ -103,26 +93,18 @@ int main(int argc, char **argv)
     jsk_rviz_plugins::OverlayText text;
 
     ros::Subscriber sub_amcl = nh.subscribe("amcl_pose", 100, callbackAmcl);
-    ros::Subscriber sub_line_sensor_x = nh.subscribe("line_sensor/x", 100, callbackLineSensor_x);
-    ros::Subscriber sub_line_sensor_y = nh.subscribe("line_sensor/y", 100, callbackLineSensor_y);
+    ros::Subscriber sub_line_sensor_x = nh.subscribe("line_sensor/binarized/x", 100, callbackLineSensor_x);
+    ros::Subscriber sub_line_sensor_y = nh.subscribe("line_sensor/binarized/y", 100, callbackLineSensor_y);
 
     ros::Publisher text_pub = nh.advertise<jsk_rviz_plugins::OverlayText>("display_rviz/text", 1);
     ros::Publisher pub_line_sensor_mk_x = nh.advertise<visualization_msgs::MarkerArray>("line_sensor_marker/x", 1);
     ros::Publisher pub_line_sensor_mk_y = nh.advertise<visualization_msgs::MarkerArray>("line_sensor_marker/y", 1);
-    ros::Publisher pub_line_sensor_x = nh.advertise<std_msgs::Int32>("line_sensor/binarized/x", 1);
-    ros::Publisher pub_line_sensor_y = nh.advertise<std_msgs::Int32>("line_sensor/binarized/y", 1);
 
     while (ros::ok())
     {
         float attach_pose[2][2] = {{0, -0.25}, {0.25, 0}};
         pub_line_sensor_mk_x.publish(generateDisplayLinesensor(0, attach_pose[0], line_sensor[0]));
         pub_line_sensor_mk_y.publish(generateDisplayLinesensor(1, attach_pose[1], line_sensor[1]));
-
-        std_msgs::Int32 binarized_x, binarized_y;
-        binarized_x.data = line_sensor[0];
-        binarized_y.data = line_sensor[1];
-        pub_line_sensor_x.publish(binarized_x);
-        pub_line_sensor_y.publish(binarized_y);
 
         // 表示用文字列を生成し、ロボットの座標をrvizに表示
         std::string send_str = generateDisplayStr(pose_arry);

@@ -1,0 +1,5 @@
+<launch>
+
+  <node name="robocon19_line_sensor_node" pkg="robocon19_line_sensor" type="robocon19_line_sensor_node" output="screen"/>
+
+</launch>

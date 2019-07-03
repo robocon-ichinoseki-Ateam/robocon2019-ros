@@ -17,6 +17,7 @@
 
   <include file="$(find robocon19_diagnostics)/launch/robocon19_diagnostics.launch"/>
   <include file="$(find robocon19_localization)/launch/robocon19_localization.launch"/>
+  <include file="$(find robocon19_line_sensor)/launch/robocon19_line_sensor.launch"/>
 
   <group if="$(eval mode=='normal')">
     <include file="$(find robocon19_mbed)/launch/robocon19_mbed.launch"/>

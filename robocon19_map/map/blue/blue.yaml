@@ -1,5 +1,5 @@
 image: blue.png
-resolution: 0.01
+resolution: 0.001
 origin: [-5.15, -1.95, 0]
 negate: 0
 occupied_thresh: 0.65

@@ -7,6 +7,13 @@ void callbackReset(const std_msgs::Bool &msg_reset)
     needs_reset = msg_reset.data | needs_reset;
 }
 
+void callbackparticlecloud(const geometry_msgs::PoseArray &particle)
+{
+    int size = particle.poses.size();
+
+    ROS_INFO("%d\t%f\r\n", size, particle.poses[0].position.x);
+}
+
 // 初期化位置の生成
 geometry_msgs::PoseWithCovarianceStamped
 generateInitialpose(float x, float y, float yaw)
@@ -29,10 +36,10 @@ int main(int argc, char **argv)
 
     // amclからのデータ受信者
     ros::Subscriber sub_amcl = nh.subscribe("reset", 100, callbackReset);
+    ros::Subscriber sub_particle = nh.subscribe("particlecloud", 100, callbackparticlecloud);
 
     // 位置初期化データの送信者
     ros::Publisher pub_initialpose = nh.advertise<geometry_msgs::PoseWithCovarianceStamped>("initialpose", 10);
-
     while (ros::ok())
     {
         if (needs_reset)

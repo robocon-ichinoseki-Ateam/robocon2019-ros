@@ -17,6 +17,7 @@
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/PoseWithCovariance.h>
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
+#include <geometry_msgs/PoseArray.h>
 
 #include <sensor_msgs/Joy.h>
 #include <sensor_msgs/LaserScan.h>

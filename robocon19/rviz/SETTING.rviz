@@ -5,6 +5,8 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
+        - /TF1
+        - /TF1/Frames1
       Splitter Ratio: 0.5
     Tree Height: 746
   - Class: rviz/Selection
@@ -25,7 +27,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: LaserScan
+    SyncSource: ""
 Toolbars:
   toolButtonStyle: 2
 Visualization Manager:
@@ -121,10 +123,8 @@ Visualization Manager:
       Frames:
         All Enabled: false
         base_laser_link:
-          Value: true
+          Value: false
         base_link:
-          Value: true
-        map:
           Value: true
         odom:
           Value: true
@@ -134,12 +134,7 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        map:
-          {}
-        odom:
-          base_link:
-            base_laser_link:
-              {}
+        {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -174,7 +169,7 @@ Visualization Manager:
       Marker Topic: /line_sensor_marker/x
       Name: MarkerArray
       Namespaces:
-        robocon19_node: true
+        {}
       Queue Size: 100
       Value: true
     - Class: rviz/MarkerArray
@@ -182,7 +177,7 @@ Visualization Manager:
       Marker Topic: /line_sensor_marker/y
       Name: MarkerArray
       Namespaces:
-        robocon19_node: true
+        {}
       Queue Size: 100
       Value: true
     - Class: jsk_rviz_plugin/OverlayDiagnostic
@@ -281,11 +276,41 @@ Visualization Manager:
       stall duration: 5
       top: 440
       type: EVA
+    - Alpha: 1
+      Axes Length: 1
+      Axes Radius: 0.100000001
+      Class: rviz/PoseWithCovariance
+      Color: 255; 25; 0
+      Covariance:
+        Orientation:
+          Alpha: 0.5
+          Color: 255; 255; 127
+          Color Style: Unique
+          Frame: Local
+          Offset: 1
+          Scale: 1
+          Value: true
+        Position:
+          Alpha: 0.300000012
+          Color: 204; 51; 204
+          Scale: 1
+          Value: true
+        Value: true
+      Enabled: true
+      Head Length: 0.300000012
+      Head Radius: 0.100000001
+      Name: PoseWithCovariance
+      Shaft Length: 1
+      Shaft Radius: 0.0500000007
+      Shape: Arrow
+      Topic: /robot_pose
+      Unreliable: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: base_laser_link
+    Fixed Frame: map
     Frame Rate: 30
   Name: root
   Tools:
@@ -306,16 +331,16 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 2.4509716
+      Distance: 2.01880527
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.170992211
-        Y: 0.0793623254
-        Z: -0.496017247
+        X: 0.0390441157
+        Y: 0.0725759491
+        Z: -0.495306283
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
@@ -324,7 +349,7 @@ Visualization Manager:
       Pitch: 1.56979632
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.70860004
+      Yaw: 4.71359777
     Saved:
       - Class: rviz/Orbit
         Distance: 10

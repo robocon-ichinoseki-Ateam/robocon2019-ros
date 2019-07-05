@@ -19,7 +19,7 @@ visualization_msgs::MarkerArray generateDisplayLinesensor(int sensor_id, float a
 {
     visualization_msgs::MarkerArray m_a;
 
-    const float interval = 0.015;
+    const float interval = 0.01397;
     const int s_num = 7;
 
     m_a.markers.resize(s_num);
@@ -102,7 +102,7 @@ int main(int argc, char **argv)
 
     while (ros::ok())
     {
-        float attach_pose[2][2] = {{0, -0.25}, {0.25, 0}};
+        float attach_pose[2][2] = {{0, -0.15}, {0.15, 0}};
         pub_line_sensor_mk_x.publish(generateDisplayLinesensor(0, attach_pose[0], line_sensor[0]));
         pub_line_sensor_mk_y.publish(generateDisplayLinesensor(1, attach_pose[1], line_sensor[1]));
 

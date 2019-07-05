@@ -35,7 +35,8 @@
 #include <jsk_rviz_plugins/OverlayText.h>
 #include <visualization_msgs/MarkerArray.h>
 
-// クウォータニオンからオイラー角を返す
+const float pose_line_sensor = 0.15;
+
 void geometry_quat_to_rpy(double &roll, double &pitch, double &yaw, geometry_msgs::Quaternion geometry_quat)
 {
     tf::Quaternion quat;

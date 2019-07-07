@@ -29,18 +29,18 @@ int binarizeLinseSensor(float data[9])
     // 0 to 2
     for (int i = 0; i <= 2; i++)
     {
-        int on_line = (data[i] < 0.6) ? 1 : 0;
+        int on_line = (data[i] > 0.6) ? 1 : 0;
         binarized += on_line << i;
     }
 
     // 3 中央のセンサは3色のうち一つのみを使用する
-    int on_line = (data[use_color] < 0.6) ? 1 : 0;
+    int on_line = (data[use_color] > 0.6) ? 1 : 0;
     binarized += on_line << 3;
 
     // 4 to 6
     for (int i = 4; i <= 6; i++)
     {
-        int on_line = (data[i + 2] < 0.6) ? 1 : 0;
+        int on_line = (data[i + 2] > 0.6) ? 1 : 0;
         binarized += on_line << i;
     }
 
@@ -63,7 +63,7 @@ void callbackLineSensor_y(const std_msgs::Float32MultiArray &msg_line_sensor)
     float data[9];
     for (int i = 0; i < 9; i++)
         data[i] = msg_line_sensor.data[i];
-    data[8] = 1;
+    data[8] = 0;
 
     binarized_data[1] = binarizeLinseSensor(data);
 }

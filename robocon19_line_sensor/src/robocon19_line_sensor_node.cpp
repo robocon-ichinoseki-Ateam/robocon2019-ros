@@ -11,14 +11,14 @@ enum
 
 int use_color = blue;
 
-int line_sensor_th[7] = {
-    0.6,
-    0.6,
-    0.6,
-    0.6,
-    0.6,
-    0.6,
-    0.6,
+float line_sensor_th[7] = {
+    0.6f,
+    0.6f,
+    0.6f,
+    0.6f,
+    0.6f,
+    0.6f,
+    0.6f,
 };
 
 // センサのデータを2値化

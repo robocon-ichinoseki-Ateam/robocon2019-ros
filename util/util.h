@@ -33,6 +33,7 @@
 #include <diagnostic_updater/diagnostic_updater.h>
 
 #include <jsk_rviz_plugins/OverlayText.h>
+#include <visualization_msgs/Marker.h>
 #include <visualization_msgs/MarkerArray.h>
 
 const float pose_line_sensor = 0.15;

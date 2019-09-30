@@ -74,6 +74,36 @@ visualization_msgs::MarkerArray generateDisplayLinesensor(int sensor_id, float a
     return m_a;
 }
 
+float f = 0.0;
+visualization_msgs::Marker generateDisplayRobot()
+{
+    visualization_msgs::Marker line_strip;
+    line_strip.id = 100;
+    line_strip.header.frame_id = "/base_link";
+    line_strip.header.stamp = ros::Time::now();
+    line_strip.ns = "robocon19_node";
+    line_strip.lifetime = ros::Duration();
+    line_strip.type = visualization_msgs::Marker::LINE_STRIP;
+    line_strip.scale.x = 0.02;
+
+    line_strip.color.g = 1.0;
+    line_strip.color.a = 1.0;
+
+    float footprint_point_f[13][2] = {{0.3575, 0.279725}, {0.279725, 0.3575}, {-0.279725, 0.3575}, {-0.3575, 0.279725}, {-0.3575, -0.279725}, {-0.279725, -0.3575}, {-0.046, -0.3575}, {-0.031, -0.4275}, {0.031, -0.4275}, {0.046, -0.3575}, {0.279725, -0.3575}, {0.3575, -0.279725}, {0.3575, 0.279725}};
+
+    for (uint32_t i = 0; i < 13; i++)
+    {
+        geometry_msgs::Point p;
+        p.x = footprint_point_f[i][0];
+        p.y = footprint_point_f[i][1];
+        p.z = 0;
+
+        line_strip.points.push_back(p);
+    }
+
+    return line_strip;
+}
+
 void callbackLineSensor_x(const std_msgs::Int32 &msg_line_sensor)
 {
     line_sensor[0] = msg_line_sensor.data;
@@ -100,11 +130,15 @@ int main(int argc, char **argv)
     ros::Publisher pub_line_sensor_mk_x = nh.advertise<visualization_msgs::MarkerArray>("line_sensor_marker/x", 1);
     ros::Publisher pub_line_sensor_mk_y = nh.advertise<visualization_msgs::MarkerArray>("line_sensor_marker/y", 1);
 
+    ros::Publisher pub_robot_mk = nh.advertise<visualization_msgs::Marker>("robot_marker", 1);
+
     while (ros::ok())
     {
         float attach_pose[2][2] = {{0, -0.295}, {-0.295, 0}};
         pub_line_sensor_mk_x.publish(generateDisplayLinesensor(0, attach_pose[0], line_sensor[0]));
         pub_line_sensor_mk_y.publish(generateDisplayLinesensor(1, attach_pose[1], line_sensor[1]));
+
+        pub_robot_mk.publish(generateDisplayRobot());
 
         // 表示用文字列を生成し、ロボットの座標をrvizに表示
         std::string send_str = generateDisplayStr(pose_arry);

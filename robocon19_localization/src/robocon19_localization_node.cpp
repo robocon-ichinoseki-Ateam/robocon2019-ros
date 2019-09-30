@@ -26,7 +26,6 @@ float pose_arry[3] = {0};
 //       w: 1.0
 //   covariance: [0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.06853891945200942]
 
-
 void callbackAmcl(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr &msgAMCL)
 {
     pose_arry[0] = msgAMCL->pose.pose.position.x;
@@ -67,12 +66,12 @@ void isOnLine(float x, float y, float arg, int line[2])
         float sensor_arg = atan2((double)(i * dis_between_sensor - 3 * dis_between_sensor), pose_line_sensor);
 
         // 機体中心からセンサまでの距離
-        float len = pose_line_sensor/cos(sensor_arg);
+        float len = pose_line_sensor / cos(sensor_arg);
 
-        sensor_pose[0] = x + len * cos(arg + sensor_arg-M_PI/2);
-        sensor_pose[1] = y + len * sin(arg + sensor_arg-M_PI/2);
+        sensor_pose[0] = x + len * cos(arg + sensor_arg - M_PI / 2);
+        sensor_pose[1] = y + len * sin(arg + sensor_arg - M_PI / 2);
 
-        if(((sensor_pose[0] < 0.025) && (sensor_pose[0] > -0.025)))
+        if (((sensor_pose[0] < 0.025) && (sensor_pose[0] > -0.025)))
         {
             line[0] |= 1 << i;
         }
@@ -87,12 +86,12 @@ void isOnLine(float x, float y, float arg, int line[2])
         float sensor_arg = atan2((double)(i * dis_between_sensor - 3 * dis_between_sensor), pose_line_sensor);
 
         // 機体中心からセンサまでの距離
-        float len = pose_line_sensor/cos(sensor_arg);
+        float len = pose_line_sensor / cos(sensor_arg);
 
         sensor_pose[0] = x + len * cos(arg + sensor_arg);
         sensor_pose[1] = y + len * sin(arg + sensor_arg);
 
-        if(((sensor_pose[1] < 0.025) && (sensor_pose[1] > -0.025)))
+        if (((sensor_pose[1] < 0.025) && (sensor_pose[1] > -0.025)))
         {
             line[1] |= 1 << i;
         }
@@ -102,8 +101,6 @@ void isOnLine(float x, float y, float arg, int line[2])
 float trueth_pose[3];
 void callbackparticlecloud(const geometry_msgs::PoseArray &particle)
 {
-
-    ROS_INFO("CB");
     int size = particle.poses.size();
 
     if (!(binarized_line[0] || binarized_line[1]))
@@ -124,7 +121,7 @@ void callbackparticlecloud(const geometry_msgs::PoseArray &particle)
         int line[2] = {0};
         isOnLine(x, y, arg, line);
 
-        if((binarized_line[0] == line[0]) && (binarized_line[1] == line[1]))
+        if ((binarized_line[0] == line[0]) && (binarized_line[1] == line[1]))
         {
             line_num++;
             sum_line[0] += x;
@@ -161,10 +158,10 @@ int main(int argc, char **argv)
     ros::Rate loop_rate(100);
 
     // amclからのデータ受信者
-    ros::Subscriber sub_amcl     = nh.subscribe("amcl_pose", 100, callbackAmcl);
-    ros::Subscriber sub_reset    = nh.subscribe("reset", 100, callbackReset);
-    ros::Subscriber sub_line_x   = nh.subscribe("line_sensor/binarized/x", 100, callbackLineX);
-    ros::Subscriber sub_line_y   = nh.subscribe("line_sensor/binarized/y", 100, callbackLineY);
+    ros::Subscriber sub_amcl = nh.subscribe("amcl_pose", 100, callbackAmcl);
+    ros::Subscriber sub_reset = nh.subscribe("reset", 100, callbackReset);
+    ros::Subscriber sub_line_x = nh.subscribe("line_sensor/binarized/x", 100, callbackLineX);
+    ros::Subscriber sub_line_y = nh.subscribe("line_sensor/binarized/y", 100, callbackLineY);
     ros::Subscriber sub_particle = nh.subscribe("particlecloud", 100, callbackparticlecloud);
 
     // 位置初期化データの送信者
@@ -180,7 +177,6 @@ int main(int argc, char **argv)
             // test: rostopic pub /reset std_msgs/Bool true
         }
 
-
         // ROS_INFO("%f %f %d \r\n", sensor_pose[0],  sensor_pose[1], line[0]);]
 
         if (binarized_line[0] != pre_binarized_line[0] || binarized_line[1] != pre_binarized_line[1])
@@ -190,8 +186,6 @@ int main(int argc, char **argv)
 
         pre_binarized_line[0] = binarized_line[0];
         pre_binarized_line[1] = binarized_line[1];
-
-
 
         ros::spinOnce();
         loop_rate.sleep();

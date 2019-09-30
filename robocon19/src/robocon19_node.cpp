@@ -15,6 +15,144 @@ void callbackAmcl(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr &msgA
     pose_arry[2] = tf::getYaw(msgAMCL->pose.pose.orientation);
 }
 
+visualization_msgs::MarkerArray generateDisplayField()
+{
+    visualization_msgs::MarkerArray m_a;
+    m_a.markers.resize(15);
+
+    for (int i = 0; i < 6; i++)
+    {
+        m_a.markers[i].header.frame_id = "/map";
+        m_a.markers[i].header.stamp = ros::Time::now();
+        m_a.markers[i].ns = "robocon19_node";
+        m_a.markers[i].id = 50 + i;
+        m_a.markers[i].lifetime = ros::Duration();
+
+        m_a.markers[i].type = visualization_msgs::Marker::CUBE;
+        m_a.markers[i].action = visualization_msgs::Marker::ADD;
+
+        m_a.markers[i].scale.x = 0.35;
+        m_a.markers[i].scale.y = 0.40;
+        m_a.markers[i].scale.z = 0.30;
+
+        m_a.markers[i].pose.position.z = 0.15;
+        m_a.markers[i].pose.orientation.x = 0;
+        m_a.markers[i].pose.orientation.y = 0;
+        m_a.markers[i].pose.orientation.z = 0;
+        m_a.markers[i].pose.orientation.w = 1;
+
+        m_a.markers[i].color.r = 1.0f;
+        m_a.markers[i].color.g = 0.0f;
+        m_a.markers[i].color.b = 1.0f;
+        m_a.markers[i].color.a = 1.0f;
+    }
+
+    m_a.markers[0].pose.position.x = -0.825;
+    m_a.markers[0].pose.position.y = 6.7;
+    m_a.markers[1].pose.position.x = -0.825;
+    m_a.markers[1].pose.position.y = 6.7 - 2;
+    m_a.markers[2].pose.position.x = -0.825;
+    m_a.markers[2].pose.position.y = 6.7 - 4;
+    m_a.markers[3].pose.position.x = -0.975 - 3.15;
+    m_a.markers[3].pose.position.y = 6.7;
+    m_a.markers[4].pose.position.x = -0.975 - 3.15;
+    m_a.markers[4].pose.position.y = 6.7 - 2;
+    m_a.markers[5].pose.position.x = -0.975 - 3.15;
+    m_a.markers[5].pose.position.y = 6.7 - 4;
+
+    for (int i = 6; i < 12; i++)
+    {
+        m_a.markers[i].header.frame_id = "/map";
+        m_a.markers[i].header.stamp = ros::Time::now();
+        m_a.markers[i].ns = "robocon19_node";
+        m_a.markers[i].id = 50 + i;
+        m_a.markers[i].lifetime = ros::Duration();
+
+        m_a.markers[i].type = visualization_msgs::Marker::CYLINDER;
+        m_a.markers[i].action = visualization_msgs::Marker::ADD;
+
+        m_a.markers[i].scale.x = 0.065;
+        m_a.markers[i].scale.y = 0.065;
+
+        m_a.markers[i].pose.position.z = 0.15;
+        m_a.markers[i].pose.orientation.x = 0;
+        m_a.markers[i].pose.orientation.y = 0;
+        m_a.markers[i].pose.orientation.z = 0;
+        m_a.markers[i].pose.orientation.w = 1;
+
+        m_a.markers[i].color.r = 1.0f;
+        m_a.markers[i].color.g = 0.0f;
+        m_a.markers[i].color.b = 1.0f;
+        m_a.markers[i].color.a = 1.0f;
+    }
+
+    m_a.markers[6].scale.z = 2;
+    m_a.markers[6].pose.position.x = -0.825 - 0.125;
+    m_a.markers[6].pose.position.y = 6.7;
+    m_a.markers[6].pose.position.z = 1.0;
+    m_a.markers[7].scale.z = 1.5;
+    m_a.markers[7].pose.position.x = -0.825 - 0.125;
+    m_a.markers[7].pose.position.y = 6.7 - 2;
+    m_a.markers[7].pose.position.z = 0.75;
+    m_a.markers[8].scale.z = 1;
+    m_a.markers[8].pose.position.x = -0.825 - 0.125;
+    m_a.markers[8].pose.position.y = 6.7 - 4;
+    m_a.markers[8].pose.position.z = 0.5;
+    m_a.markers[9].scale.z = 2;
+    m_a.markers[9].pose.position.x = -0.975 - 3.15 + 0.125;
+    m_a.markers[9].pose.position.y = 6.7;
+    m_a.markers[9].pose.position.z = 1.0;
+    m_a.markers[10].scale.z = 1.5;
+    m_a.markers[10].pose.position.x = -0.975 - 3.15 + 0.125;
+    m_a.markers[10].pose.position.y = 6.7 - 2;
+    m_a.markers[10].pose.position.z = 0.75;
+    m_a.markers[11].scale.z = 1;
+    m_a.markers[11].pose.position.x = -0.975 - 3.15 + 0.125;
+    m_a.markers[11].pose.position.y = 6.7 - 4;
+    m_a.markers[11].pose.position.z = 0.5;
+
+    for (int i = 12; i < 15; i++)
+    {
+        m_a.markers[i].header.frame_id = "/map";
+        m_a.markers[i].header.stamp = ros::Time::now();
+        m_a.markers[i].ns = "robocon19_node";
+        m_a.markers[i].id = 50 + i;
+        m_a.markers[i].lifetime = ros::Duration();
+
+        m_a.markers[i].type = visualization_msgs::Marker::CYLINDER;
+        m_a.markers[i].action = visualization_msgs::Marker::ADD;
+
+        m_a.markers[i].scale.x = 0.065;
+        m_a.markers[i].scale.y = 0.065;
+
+        m_a.markers[i].pose.position.z = 0.15;
+        m_a.markers[i].pose.orientation.x = -0.5;
+        m_a.markers[i].pose.orientation.y = 0.5;
+        m_a.markers[i].pose.orientation.z = -0.5;
+        m_a.markers[i].pose.orientation.w = 0.5;
+
+        m_a.markers[i].color.r = 1.0f;
+        m_a.markers[i].color.g = 0.0f;
+        m_a.markers[i].color.b = 1.0f;
+        m_a.markers[i].color.a = 1.0f;
+    }
+
+    m_a.markers[12].scale.z = 3.0;
+    m_a.markers[12].pose.position.x = -2.475;
+    m_a.markers[12].pose.position.y = 6.7;
+    m_a.markers[12].pose.position.z = 2.0;
+    m_a.markers[13].scale.z = 3.0;
+    m_a.markers[13].pose.position.x = -2.475;
+    m_a.markers[13].pose.position.y = 6.7 - 2;
+    m_a.markers[13].pose.position.z = 1.5;
+    m_a.markers[14].scale.z = 3.0;
+    m_a.markers[14].pose.position.x = -2.475;
+    m_a.markers[14].pose.position.y = 6.7 - 4;
+    m_a.markers[14].pose.position.z = 1.0;
+
+    return m_a;
+}
+
 visualization_msgs::MarkerArray generateDisplayLinesensor(int sensor_id, float attach_pose[2], int snesor_val)
 {
     visualization_msgs::MarkerArray m_a;
@@ -113,7 +251,7 @@ void callbackLineSensor_y(const std_msgs::Int32 &msg_line_sensor)
 {
     line_sensor[1] = msg_line_sensor.data;
 }
-
+int count = 0;
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "robocon19_node");
@@ -126,9 +264,12 @@ int main(int argc, char **argv)
     ros::Subscriber sub_line_sensor_x = nh.subscribe("line_sensor/binarized/x", 100, callbackLineSensor_x);
     ros::Subscriber sub_line_sensor_y = nh.subscribe("line_sensor/binarized/y", 100, callbackLineSensor_y);
 
+    // 表示系
     ros::Publisher text_pub = nh.advertise<jsk_rviz_plugins::OverlayText>("display_rviz/text", 1);
     ros::Publisher pub_line_sensor_mk_x = nh.advertise<visualization_msgs::MarkerArray>("line_sensor_marker/x", 1);
     ros::Publisher pub_line_sensor_mk_y = nh.advertise<visualization_msgs::MarkerArray>("line_sensor_marker/y", 1);
+
+    ros::Publisher pub_field_mk = nh.advertise<visualization_msgs::MarkerArray>("field_marker", 1);
 
     ros::Publisher pub_robot_mk = nh.advertise<visualization_msgs::Marker>("robot_marker", 1);
 
@@ -137,6 +278,13 @@ int main(int argc, char **argv)
         float attach_pose[2][2] = {{0, -0.295}, {-0.295, 0}};
         pub_line_sensor_mk_x.publish(generateDisplayLinesensor(0, attach_pose[0], line_sensor[0]));
         pub_line_sensor_mk_y.publish(generateDisplayLinesensor(1, attach_pose[1], line_sensor[1]));
+
+        // 処理が重いため、最初の10秒のみ送信
+        if (count < 10000 * 50)
+        {
+            pub_field_mk.publish(generateDisplayField());
+        }
+        count++;
 
         pub_robot_mk.publish(generateDisplayRobot());
 

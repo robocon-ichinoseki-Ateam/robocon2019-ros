@@ -168,7 +168,7 @@ Visualization Manager:
       Marker Topic: /line_sensor_marker/x
       Name: MarkerArray
       Namespaces:
-        robocon19_node: true
+        {}
       Queue Size: 100
       Value: true
     - Class: rviz/MarkerArray
@@ -176,7 +176,7 @@ Visualization Manager:
       Marker Topic: /line_sensor_marker/y
       Name: MarkerArray
       Namespaces:
-        robocon19_node: true
+        {}
       Queue Size: 100
       Value: true
     - Class: jsk_rviz_plugin/OverlayDiagnostic
@@ -310,7 +310,15 @@ Visualization Manager:
       Marker Topic: /robot_marker
       Name: Marker
       Namespaces:
-        robocon19_node: true
+        {}
+      Queue Size: 100
+      Value: true
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /field_marker
+      Name: MarkerArray
+      Namespaces:
+        {}
       Queue Size: 100
       Value: true
   Enabled: true
@@ -341,7 +349,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 3.6344144344329834
+      Distance: 12.723390579223633
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -356,10 +364,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.5697963237762451
+      Pitch: 1.5297963619232178
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.69858980178833
+      Yaw: 4.638583660125732
     Saved:
       - Class: rviz/Orbit
         Distance: 10

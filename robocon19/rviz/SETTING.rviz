@@ -6,7 +6,6 @@ Panels:
       Expanded:
         - /Global Options1
         - /TF1/Frames1
-        - /Marker1
       Splitter Ratio: 0.5
     Tree Height: 732
   - Class: rviz/Selection
@@ -139,11 +138,10 @@ Visualization Manager:
       Show Names: true
       Tree:
         map:
-          {}
-        odom:
-          base_link:
-            base_laser_link:
-              {}
+          odom:
+            base_link:
+              base_laser_link:
+                {}
       Update Interval: 0
       Value: true
     - Align Bottom: false
@@ -167,7 +165,7 @@ Visualization Manager:
       width: 128
     - Class: rviz/MarkerArray
       Enabled: true
-      Marker Topic: /line_sensor_marker/x
+      Marker Topic: /robot_marker/line_sensor/x
       Name: MarkerArray
       Namespaces:
         robocon19_node: true
@@ -175,7 +173,7 @@ Visualization Manager:
       Value: true
     - Class: rviz/MarkerArray
       Enabled: true
-      Marker Topic: /line_sensor_marker/y
+      Marker Topic: /robot_marker/line_sensor/y
       Name: MarkerArray
       Namespaces:
         robocon19_node: true
@@ -359,25 +357,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 7.584413528442383
+      Distance: 7.4621381759643555
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.5899152159690857
-        Y: 1.9612938165664673
-        Z: 1.21303391456604
+        X: -0.6225582361221313
+        Y: 1.2515701055526733
+        Z: 0.9010255932807922
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.6347972750663757
+      Pitch: 0.664797306060791
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 5.313571929931641
+      Yaw: 5.583574295043945
     Saved:
       - Class: rviz/Orbit
         Distance: 10

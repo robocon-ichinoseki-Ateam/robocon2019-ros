@@ -1,6 +1,8 @@
-visualization_msgs::MarkerArray generateDisplayLinesensor(int sensor_id, float attach_pose[2], int snesor_val)
+visualization_msgs::MarkerArray generateDisplayLinesensor(int sensor_id, int snesor_val)
 {
     visualization_msgs::MarkerArray m_a;
+
+    float attach_pose[2][2] = {{0, -0.295}, {-0.295, 0}};
 
     const float interval = 0.01397;
     const int s_num = 7;
@@ -23,13 +25,13 @@ visualization_msgs::MarkerArray generateDisplayLinesensor(int sensor_id, float a
 
         if (sensor_id == 0)
         {
-            m_a.markers[i].pose.position.x = attach_pose[0] + (float)i * interval - interval * 3.5;
-            m_a.markers[i].pose.position.y = attach_pose[1];
+            m_a.markers[i].pose.position.x = attach_pose[sensor_id][0] + (float)i * interval - interval * 3.5;
+            m_a.markers[i].pose.position.y = attach_pose[sensor_id][1];
         }
         else
         {
-            m_a.markers[i].pose.position.x = attach_pose[0];
-            m_a.markers[i].pose.position.y = attach_pose[1] + (float)i * interval - interval * 3.5;
+            m_a.markers[i].pose.position.x = attach_pose[sensor_id][0];
+            m_a.markers[i].pose.position.y = attach_pose[sensor_id][1] + (float)i * interval - interval * 3.5;
         }
 
         m_a.markers[i].pose.position.z = 0;

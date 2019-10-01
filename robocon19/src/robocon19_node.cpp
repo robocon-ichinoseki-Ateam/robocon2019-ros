@@ -32,7 +32,7 @@ int main(int argc, char **argv)
 {
     ros::init(argc, argv, "robocon19_node");
     ros::NodeHandle nh;
-    ros::Rate loop_rate(50);
+    ros::Rate loop_rate(30);
 
     jsk_rviz_plugins::OverlayText text;
 
@@ -40,30 +40,31 @@ int main(int argc, char **argv)
     ros::Subscriber sub_line_sensor_x = nh.subscribe("line_sensor/binarized/x", 100, callbackLineSensor_x);
     ros::Subscriber sub_line_sensor_y = nh.subscribe("line_sensor/binarized/y", 100, callbackLineSensor_y);
 
-    // 表示系
+    // テキスト
     ros::Publisher text_pub = nh.advertise<jsk_rviz_plugins::OverlayText>("display_rviz/text", 1);
-    ros::Publisher pub_line_sensor_mk_x = nh.advertise<visualization_msgs::MarkerArray>("line_sensor_marker/x", 1);
-    ros::Publisher pub_line_sensor_mk_y = nh.advertise<visualization_msgs::MarkerArray>("line_sensor_marker/y", 1);
 
+    // フィールド
     ros::Publisher pub_field_mk = nh.advertise<visualization_msgs::MarkerArray>("field_marker", 1);
 
+    // ロボット
     ros::Publisher pub_robot_footprint_mk = nh.advertise<visualization_msgs::Marker>("robot_marker/footprint", 1);
+    ros::Publisher pub_line_sensor_mk_x = nh.advertise<visualization_msgs::MarkerArray>("robot_marker/line_sensor/x", 1);
+    ros::Publisher pub_line_sensor_mk_y = nh.advertise<visualization_msgs::MarkerArray>("robot_marker/line_sensor/y", 1);
     ros::Publisher pub_robot_lift_mk = nh.advertise<visualization_msgs::Marker>("robot_marker/lift", 1);
 
     while (ros::ok())
     {
-        float attach_pose[2][2] = {{0, -0.295}, {-0.295, 0}};
-        pub_line_sensor_mk_x.publish(generateDisplayLinesensor(0, attach_pose[0], line_sensor[0]));
-        pub_line_sensor_mk_y.publish(generateDisplayLinesensor(1, attach_pose[1], line_sensor[1]));
-
-        // 処理が重いため、最初の10秒のみ送信
-        if (count < 10000 * 50)
+        // フィールドマーカーの描画は処理が重いため、最初の10秒のみ送信
+        if (count < 10 * 30)
         {
             pub_field_mk.publish(generateDisplayField());
         }
         count++;
 
+        // ロボットのマーカーを送信
         pub_robot_footprint_mk.publish(generateDisplayRobotFootprint());
+        pub_line_sensor_mk_x.publish(generateDisplayLinesensor(0, line_sensor[0]));
+        pub_line_sensor_mk_y.publish(generateDisplayLinesensor(1, line_sensor[1]));
         pub_robot_lift_mk.publish(generateDisplayRobotLift());
 
         // 表示用文字列を生成し、ロボットの座標をrvizに表示

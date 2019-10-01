@@ -4,7 +4,9 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
+        - /Global Options1
         - /TF1/Frames1
+        - /Marker1
       Splitter Ratio: 0.5
     Tree Height: 732
   - Class: rviz/Selection
@@ -168,7 +170,7 @@ Visualization Manager:
       Marker Topic: /line_sensor_marker/x
       Name: MarkerArray
       Namespaces:
-        {}
+        robocon19_node: true
       Queue Size: 100
       Value: true
     - Class: rviz/MarkerArray
@@ -176,7 +178,7 @@ Visualization Manager:
       Marker Topic: /line_sensor_marker/y
       Name: MarkerArray
       Namespaces:
-        {}
+        robocon19_node: true
       Queue Size: 100
       Value: true
     - Class: jsk_rviz_plugin/OverlayDiagnostic
@@ -307,10 +309,10 @@ Visualization Manager:
       Value: true
     - Class: rviz/Marker
       Enabled: true
-      Marker Topic: /robot_marker
+      Marker Topic: /robot_marker/footprint
       Name: Marker
       Namespaces:
-        {}
+        robocon19_node: true
       Queue Size: 100
       Value: true
     - Class: rviz/MarkerArray
@@ -318,14 +320,22 @@ Visualization Manager:
       Marker Topic: /field_marker
       Name: MarkerArray
       Namespaces:
-        {}
+        robocon19_node: true
+      Queue Size: 100
+      Value: true
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /robot_marker/lift
+      Name: Marker
+      Namespaces:
+        robocon19_node: true
       Queue Size: 100
       Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: base_laser_link
+    Fixed Frame: map
     Frame Rate: 30
   Name: root
   Tools:
@@ -349,25 +359,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 12.723390579223633
+      Distance: 7.584413528442383
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.025840628892183304
-        Y: 0.05614175274968147
-        Z: -0.49531805515289307
+        X: -0.5899152159690857
+        Y: 1.9612938165664673
+        Z: 1.21303391456604
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.5297963619232178
+      Pitch: 0.6347972750663757
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.638583660125732
+      Yaw: 5.313571929931641
     Saved:
       - Class: rviz/Orbit
         Distance: 10

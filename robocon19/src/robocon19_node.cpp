@@ -7,6 +7,8 @@ float pose_arry[3] = {0};
 float pre_pose[3] = {0};
 int line_sensor[2] = {0};
 
+float lift_height = 0.7;
+
 void callbackAmcl(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr &msgAMCL)
 {
     pose_arry[0] = msgAMCL->pose.pose.position.x;
@@ -27,6 +29,11 @@ void callbackLineSensor_y(const std_msgs::Int32 &msg_line_sensor)
     line_sensor[1] = msg_line_sensor.data;
 }
 
+void callbackLiftHeight(const std_msgs::Float32 &msg_lift_height)
+{
+    lift_height = msg_lift_height.data;
+}
+
 int count = 0;
 int main(int argc, char **argv)
 {
@@ -39,6 +46,7 @@ int main(int argc, char **argv)
     ros::Subscriber sub_amcl = nh.subscribe("amcl_pose", 100, callbackAmcl);
     ros::Subscriber sub_line_sensor_x = nh.subscribe("line_sensor/binarized/x", 100, callbackLineSensor_x);
     ros::Subscriber sub_line_sensor_y = nh.subscribe("line_sensor/binarized/y", 100, callbackLineSensor_y);
+    ros::Subscriber sub_lift_height = nh.subscribe("lift_height", 100, callbackLiftHeight);
 
     // テキスト
     ros::Publisher text_pub = nh.advertise<jsk_rviz_plugins::OverlayText>("display_rviz/text", 1);
@@ -65,7 +73,7 @@ int main(int argc, char **argv)
         pub_robot_footprint_mk.publish(generateDisplayRobotFootprint());
         pub_line_sensor_mk_x.publish(generateDisplayLinesensor(0, line_sensor[0]));
         pub_line_sensor_mk_y.publish(generateDisplayLinesensor(1, line_sensor[1]));
-        pub_robot_lift_mk.publish(generateDisplayRobotLift());
+        pub_robot_lift_mk.publish(generateDisplayRobotLift(lift_height));
 
         // 表示用文字列を生成し、ロボットの座標をrvizに表示
         std::string send_str = generateDisplayStr(pose_arry);

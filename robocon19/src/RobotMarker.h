@@ -88,8 +88,7 @@ visualization_msgs::Marker generateDisplayRobotFootprint()
     return line_strip;
 }
 
-float lift_height = 1.7;
-visualization_msgs::Marker generateDisplayRobotLift()
+visualization_msgs::Marker generateDisplayRobotLift(float lift_height)
 {
     visualization_msgs::Marker mk;
     mk.id = 101;

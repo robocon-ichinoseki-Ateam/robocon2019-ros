@@ -52,7 +52,7 @@ int main(int argc, char **argv)
     ros::Publisher text_pub = nh.advertise<jsk_rviz_plugins::OverlayText>("display_rviz/text", 1);
 
     // フィールド
-    ros::Publisher pub_field_mk = nh.advertise<visualization_msgs::MarkerArray>("field_marker", 1);
+    // ros::Publisher pub_field_mk = nh.advertise<visualization_msgs::MarkerArray>("field_marker", 1);
 
     // ロボット
     ros::Publisher pub_robot_footprint_mk = nh.advertise<visualization_msgs::Marker>("robot_marker/footprint", 1);
@@ -62,12 +62,12 @@ int main(int argc, char **argv)
 
     while (ros::ok())
     {
-        // フィールドマーカーの描画は処理が重いため、最初の10秒のみ送信
-        if (count < 10 * 30)
-        {
-            pub_field_mk.publish(generateDisplayField());
-        }
-        count++;
+        // // フィールドマーカーの描画は処理が重いため、最初の10秒のみ送信
+        // if (count < 10 * 30)
+        // {
+        //     pub_field_mk.publish(generateDisplayField());
+        // }
+        // count++;
 
         // ロボットのマーカーを送信
         pub_robot_footprint_mk.publish(generateDisplayRobotFootprint());

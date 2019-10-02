@@ -35,12 +35,12 @@
     <node pkg="rosserial_python" type="serial_node.py" name="serial_node_0">
       <param name="port" value="/dev/ttyACM0"/>
     </node>
-    <node pkg="rosserial_python" type="serial_node.py" name="serial_node_1">
+    <!-- <node pkg="rosserial_python" type="serial_node.py" name="serial_node_1">
       <param name="port" value="/dev/ttyACM1"/>
     </node>
     <node pkg="rosserial_python" type="serial_node.py" name="serial_node_2">
       <param name="port" value="/dev/ttyACM2"/>
-    </node>
+    </node> -->
     <!-- <group if="$(eval record=='true')">
       <node pkg="rosbag" type="record" name="rosbag_record"  args="record -o /scan /mbed_to_ros /line_sensor/x /line_sensor/y"/>
     </group> -->

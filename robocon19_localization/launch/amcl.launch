@@ -60,16 +60,16 @@
     <param name="odom_model_type" value="omni"/>
 
     <!-- ロボットの回転運動によるオドメトリの回転成分のズレ -->
-    <param name="odom_alpha1" value="0.2"/>
+    <param name="odom_alpha1" value="0.09"/>
 
     <!-- ロボットの回転運動によるオドメトリの並進成分のズレ -->
-    <param name="odom_alpha2" value="0.2"/>
+    <param name="odom_alpha2" value="0.28"/>
 
     <!-- ロボットの並進運動によるオドメトリの並進成分のズレ -->
-    <param name="odom_alpha3" value="0.2"/>
+    <param name="odom_alpha3" value="0.28"/>
 
     <!-- ロボットの並進運動によるオドメトリの回転成分のズレ -->
-    <param name="odom_alpha4" value="0.2"/>
+    <param name="odom_alpha4" value="0.09"/>
 
     <!--  -->
     <param name="odom_alpha5" value="0.01"/>

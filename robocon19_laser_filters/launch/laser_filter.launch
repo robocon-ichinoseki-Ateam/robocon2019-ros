@@ -1,8 +1,0 @@
-<launch>
-
-  <node pkg="laser_filters" type="scan_to_scan_filter_chain" name="laser_filter">
-    <rosparam command="load" file="$(find robocon19_laser_filters)/config/laser_filter.ymal" />
-    <remap from="scan" to="filtered_scan" />
-  </node>
-
-</launch>

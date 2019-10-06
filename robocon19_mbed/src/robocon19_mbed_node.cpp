@@ -6,6 +6,7 @@ int line_sensor_arry[2] = {0};
 geometry_msgs::TransformStamped odom;
 std_msgs::Float32 lift_height;
 std_msgs::Bool needs_reset_pose;
+bool init_flag = false;
 
 // Mbedからのコールバック
 void callbackFromMbed(const std_msgs::Float32MultiArray &msg)
@@ -16,6 +17,15 @@ void callbackFromMbed(const std_msgs::Float32MultiArray &msg)
     odom.transform.rotation = tf::createQuaternionMsgFromYaw(msg.data[3]);
     lift_height.data = msg.data[4];
     line_sensor_arry[1] = msg.data[5];
+
+    if (!init_flag)
+    {
+        if (abs(msg.data[1]) < 0.001 && abs(msg.data[2]) < 0.001)
+        {
+            needs_reset_pose.data = true;
+            init_flag = true;
+        }
+    }
     // measureLooptime();
 }
 

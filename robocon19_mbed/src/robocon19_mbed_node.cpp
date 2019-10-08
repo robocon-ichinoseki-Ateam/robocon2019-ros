@@ -22,14 +22,14 @@ void callbackFromMbed(const std_msgs::Float32MultiArray &msg)
     for (int i = 0; i < 3; i++)
         odom_arry[i] = msg.data[i + 1];
 
-    // if (!init_flag)
-    // {
-    //     if (abs(msg.data[1]) < 0.001 && abs(msg.data[2]) < 0.001)
-    //     {
-    //         needs_reset_pose.data = true;
-    //         init_flag = true;
-    //     }
-    // }
+    if (!init_flag)
+    {
+        if (abs(msg.data[1]) < 0.001 && 0.242 < msg.data[2] && msg.data[2] < 0.244)
+        {
+            needs_reset_pose.data = true;
+            init_flag = true;
+        }
+    }
     // measureLooptime();
 }
 

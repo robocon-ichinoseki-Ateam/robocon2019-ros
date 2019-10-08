@@ -1,6 +1,7 @@
 #include "../../util/util.h"
 
 bool needs_reset = false;
+float odom_data[3] = {0};
 
 int pre_binarized_line[2] = {0};
 int binarized_line[2] = {0};
@@ -25,6 +26,12 @@ float pose_arry[3] = {0};
 //       z: 0.0
 //       w: 1.0
 //   covariance: [0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.06853891945200942]
+
+void callbackOdomData(const std_msgs::Float32MultiArray &msg)
+{
+    for (int i = 0; i < 3; i++)
+        odom_data[i] = msg.data[i];
+}
 
 void callbackAmcl(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr &msgAMCL)
 {
@@ -162,6 +169,7 @@ int main(int argc, char **argv)
     // amclからのデータ受信者
     ros::Subscriber sub_amcl = nh.subscribe("amcl_pose", 100, callbackAmcl);
     ros::Subscriber sub_reset = nh.subscribe("reset", 100, callbackReset);
+    ros::Subscriber sub_odom_data = nh.subscribe("odom_data", 100, callbackOdomData);
     ros::Subscriber sub_line_x = nh.subscribe("line_sensor/binarized/x", 100, callbackLineX);
     ros::Subscriber sub_line_y = nh.subscribe("line_sensor/binarized/y", 100, callbackLineY);
     ros::Subscriber sub_particle = nh.subscribe("particlecloud", 100, callbackparticlecloud);
@@ -174,7 +182,7 @@ int main(int argc, char **argv)
     {
         if (needs_reset)
         {
-            pub_initialpose.publish(generateInitialpose(0, 0, 0));
+            pub_initialpose.publish(generateInitialpose(odom_data[0], odom_data[1], odom_data[2]));
             needs_reset = false;
             // test: rostopic pub /reset std_msgs/Bool true
         }

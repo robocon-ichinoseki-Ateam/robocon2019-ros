@@ -5,6 +5,7 @@
 std_msgs::Float32 linear_data, angular_data;
 float pose_arry[3] = {0};
 float pre_pose[3] = {0};
+float odom_data[3] = {0};
 int line_sensor[2] = {0};
 
 float lift_height = 0.7;
@@ -18,6 +19,12 @@ void callbackAmcl(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr &msgA
 
 #include "FieldMarker.h"
 #include "RobotMarker.h"
+
+void callbackOdomData(const std_msgs::Float32MultiArray &msg)
+{
+    for (int i = 0; i < 3; i++)
+        odom_data[i] = msg.data[i];
+}
 
 void callbackLineSensor_x(const std_msgs::Int32 &msg_line_sensor)
 {
@@ -44,6 +51,7 @@ int main(int argc, char **argv)
     jsk_rviz_plugins::OverlayText text;
 
     ros::Subscriber sub_amcl = nh.subscribe("amcl_pose", 100, callbackAmcl);
+    ros::Subscriber sub_odom_data = nh.subscribe("odom_data", 100, callbackOdomData);
     ros::Subscriber sub_line_sensor_x = nh.subscribe("line_sensor/binarized/x", 100, callbackLineSensor_x);
     ros::Subscriber sub_line_sensor_y = nh.subscribe("line_sensor/binarized/y", 100, callbackLineSensor_y);
     ros::Subscriber sub_lift_height = nh.subscribe("lift_height", 100, callbackLiftHeight);
@@ -76,8 +84,8 @@ int main(int argc, char **argv)
         pub_robot_lift_mk.publish(generateDisplayRobotLift(lift_height));
 
         // 表示用文字列を生成し、ロボットの座標をrvizに表示
-        std::string send_str = generateDisplayStr(pose_arry);
-        configOverlayText(text, send_str);
+        generateDisplayStr(pose_arry, odom_data);
+        configOverlayText(text);
         text_pub.publish(text);
 
         ros::spinOnce();

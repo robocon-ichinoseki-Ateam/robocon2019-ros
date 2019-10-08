@@ -122,6 +122,9 @@ int main(int argc, char **argv)
     {
         state[i] = 2;
     }
+    state[1] = 0;
+    state[5] = 0;
+    state[6] = 0;
 
     diagnostic_updater::Updater updater;
 

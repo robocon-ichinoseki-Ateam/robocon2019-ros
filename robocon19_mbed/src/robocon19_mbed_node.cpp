@@ -2,6 +2,7 @@
 
 float pose_arry[3] = {0.0};
 int line_sensor_arry[2] = {0};
+float odom_arry[3] = {0.0};
 
 geometry_msgs::TransformStamped odom;
 std_msgs::Float32 lift_height;
@@ -17,6 +18,9 @@ void callbackFromMbed(const std_msgs::Float32MultiArray &msg)
     odom.transform.rotation = tf::createQuaternionMsgFromYaw(msg.data[3]);
     lift_height.data = msg.data[4];
     line_sensor_arry[1] = msg.data[5];
+
+    for (int i = 0; i < 3; i++)
+        odom_arry[i] = msg.data[i + 1];
 
     // if (!init_flag)
     // {
@@ -58,6 +62,9 @@ int main(int argc, char **argv)
     odom.child_frame_id = "base_link";
 
     // Mbedへのデータ配信者
+    ros::Publisher pub_odom_data = nh.advertise<std_msgs::Float32MultiArray>("odom_data", 100);
+
+    // odomデータ配信者
     ros::Publisher pub_to_mbed = nh.advertise<std_msgs::Float32MultiArray>("ros_to_mbed", 100);
 
     // 昇降機構の高さのデータ配信者
@@ -80,6 +87,14 @@ int main(int argc, char **argv)
         toMbed.data[2] = pose_arry[1];
         toMbed.data[3] = pose_arry[2];
         pub_to_mbed.publish(toMbed);
+
+        // odom_data送信
+        std_msgs::Float32MultiArray odom_data;
+        odom_data.data.resize(3);
+        odom_data.data[0] = odom_arry[0];
+        odom_data.data[1] = odom_arry[1];
+        odom_data.data[2] = odom_arry[2];
+        pub_odom_data.publish(odom_data);
 
         // 昇降機構の高さの送信
         pub_lift_height.publish(lift_height);

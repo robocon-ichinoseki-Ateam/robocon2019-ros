@@ -1,12 +1,13 @@
-void configOverlayText(jsk_rviz_plugins::OverlayText &t, std::string str);
-std::string generateDisplayStr(float pose[3]);
+char display_chars[256];
+void configOverlayText(jsk_rviz_plugins::OverlayText &t);
+void generateDisplayStr(float pose[3]);
 
 // rvizに表示するテキストの設定
-void configOverlayText(jsk_rviz_plugins::OverlayText &t, std::string str)
+void configOverlayText(jsk_rviz_plugins::OverlayText &t)
 {
     t.action = jsk_rviz_plugins::OverlayText::ADD;
-    t.width = 140;
-    t.height = 100;
+    t.width = 230;
+    t.height = 78;
     t.left = 10;
     t.top = 10;
 
@@ -24,19 +25,17 @@ void configOverlayText(jsk_rviz_plugins::OverlayText &t, std::string str)
     t.fg_color = color2;
 
     t.line_width = 1;
-    t.text_size = 14;
-    t.font = "Ubuntu";
-    t.text = str;
+    t.text_size = 13;
+    t.font = "Cica";
+    t.text = display_chars;
 }
 
 // rvizに表示するテキストデータを生成
-std::string generateDisplayStr(float pose[3])
+void generateDisplayStr(float pose[3], float odom[3])
 {
-    std::stringstream ss;
-    ss << "-position-\r\n"
-       << "x: " << pose[0] << "\r\n"
-       << "y: " << pose[1] << "\r\n"
-       << "z: " << pose[2] * (180 / 3.14159); /*to degree*/
-
-    return ss.str();
+    sprintf(display_chars, "____amcl_____odom_____diff_\r\n\
+                            x| %+.3f | %+.3f | %+.3f\r\n\
+                            y| %+.3f | %+.3f | %+.3f\r\n\
+                            z| %+.3f | %+.3f | %+.3f",
+            pose[0], odom[0], pose[0] - odom[0], pose[1], odom[1], pose[1] - odom[1], pose[2] * (180 / 3.14159), odom[2] * (180 / 3.14159), (pose[2] - odom[2]) * (180 / 3.14159));
 }

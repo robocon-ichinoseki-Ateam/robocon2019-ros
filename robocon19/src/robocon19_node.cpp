@@ -1,7 +1,5 @@
 #include "../../util/util.h"
 
-#include "OverlayText.h"
-
 std_msgs::Float32 linear_data, angular_data;
 float pose_arry[3] = {0};
 float pre_pose[3] = {0};
@@ -9,6 +7,7 @@ float odom_data[3] = {0};
 int line_sensor[2] = {0};
 
 float lift_height = 0.7;
+int switch_val = 0;
 
 void callbackAmcl(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr &msgAMCL)
 {
@@ -19,6 +18,7 @@ void callbackAmcl(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr &msgA
 
 #include "FieldMarker.h"
 #include "RobotMarker.h"
+#include "OverlayText.h"
 
 void callbackOdomData(const std_msgs::Float32MultiArray &msg)
 {
@@ -41,6 +41,11 @@ void callbackLiftHeight(const std_msgs::Float32 &msg_lift_height)
     lift_height = msg_lift_height.data;
 }
 
+void callbackSwitchData(const std_msgs::Int32 &msg_switch_data)
+{
+    switch_val = msg_switch_data.data;
+}
+
 int count = 0;
 int main(int argc, char **argv)
 {
@@ -55,6 +60,7 @@ int main(int argc, char **argv)
     ros::Subscriber sub_line_sensor_x = nh.subscribe("line_sensor/binarized/x", 100, callbackLineSensor_x);
     ros::Subscriber sub_line_sensor_y = nh.subscribe("line_sensor/binarized/y", 100, callbackLineSensor_y);
     ros::Subscriber sub_lift_height = nh.subscribe("lift_height", 100, callbackLiftHeight);
+    ros::Subscriber sub_switch_data = nh.subscribe("switch_data", 100, callbackSwitchData);
 
     // テキスト
     ros::Publisher text_pub = nh.advertise<jsk_rviz_plugins::OverlayText>("display_rviz/text", 1);

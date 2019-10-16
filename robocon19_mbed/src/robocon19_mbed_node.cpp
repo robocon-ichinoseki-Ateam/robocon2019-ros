@@ -6,6 +6,7 @@ float odom_arry[3] = {0.0};
 
 geometry_msgs::TransformStamped odom;
 std_msgs::Float32 lift_height;
+std_msgs::Int32 switch_data;
 std_msgs::Bool needs_reset_pose;
 bool init_flag = false;
 
@@ -17,7 +18,7 @@ void callbackFromMbed(const std_msgs::Float32MultiArray &msg)
     odom.transform.translation.y = msg.data[2];
     odom.transform.rotation = tf::createQuaternionMsgFromYaw(msg.data[3]);
     lift_height.data = msg.data[4];
-    line_sensor_arry[1] = msg.data[5];
+    switch_data.data = (int)msg.data[5];
 
     for (int i = 0; i < 3; i++)
         odom_arry[i] = msg.data[i + 1];
@@ -70,6 +71,9 @@ int main(int argc, char **argv)
     // 昇降機構の高さのデータ配信者
     ros::Publisher pub_lift_height = nh.advertise<std_msgs::Float32>("lift_height", 100);
 
+    // スイッチデータの配信者
+    ros::Publisher pub_switch_data = nh.advertise<std_msgs::Int32>("switch_data", 100);
+
     // 自己位置リセット信号の配信者
     ros::Publisher pub_reset = nh.advertise<std_msgs::Bool>("reset", 100);
     while (nh.ok())
@@ -98,6 +102,9 @@ int main(int argc, char **argv)
 
         // 昇降機構の高さの送信
         pub_lift_height.publish(lift_height);
+
+        // スイッチデータの送信
+        pub_switch_data.publish(switch_data);
 
         // リセット信号の送信
         pub_reset.publish(needs_reset_pose);

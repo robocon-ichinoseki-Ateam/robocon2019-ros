@@ -33,9 +33,16 @@ void configOverlayText(jsk_rviz_plugins::OverlayText &t)
 // rvizに表示するテキストデータを生成
 void generateDisplayStr(float pose[3], float odom[3])
 {
-    sprintf(display_chars, "____amcl_____odom_____diff_\r\n\
+    char str_1[20] = (switch_val & 0b00000001) ? "昇降位置合わせ" : "通常走行";
+    char str_3[20] = (switch_val & 0b00000010) ? "青" : "赤";
+    char str_4[20] = (switch_val & 0b00000100) ? "決勝" : "予選";
+    char str_5[20] = (switch_val & 0b00001000) ? "バスタオル:掛ける" : "バスタオル:掛けない";
+    char str_6[20] = (switch_val & 0b00110000 == 0) ? "シーツ:掛けない" : ((switch_val & 0b00110000 == 1) ? "シーツ:3点" : "シーツ:9点");
+
+    sprintf(display_chars, "%d\r\n\
+                            ____amcl_____odom_____diff_\r\n\
                             x| %+.3f | %+.3f | %+.3f\r\n\
                             y| %+.3f | %+.3f | %+.3f\r\n\
                             z| %+.3f | %+.3f | %+.3f",
-            pose[0], odom[0], pose[0] - odom[0], pose[1], odom[1], pose[1] - odom[1], pose[2] * (180 / 3.14159), odom[2] * (180 / 3.14159), (pose[2] - odom[2]) * (180 / 3.14159));
+            switch_val, pose[0], odom[0], pose[0] - odom[0], pose[1], odom[1], pose[1] - odom[1], pose[2] * (180 / 3.14159), odom[2] * (180 / 3.14159), (pose[2] - odom[2]) * (180 / 3.14159));
 }

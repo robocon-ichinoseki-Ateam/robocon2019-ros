@@ -126,11 +126,10 @@ Visualization Manager:
       Show Names: true
       Tree:
         map:
-          {}
-        odom:
-          base_link:
-            base_laser_link:
-              {}
+          odom:
+            base_link:
+              base_laser_link:
+                {}
       Update Interval: 0
       Value: true
     - Align Bottom: false
@@ -186,7 +185,7 @@ Visualization Manager:
       Topic: /diagnostics
       Value: true
       alpha: 0.800000012
-      diagnostics namespace: "robocon19_diagnostics_node: AMCL"
+      diagnostics namespace: "robocon19_diagnostics_node: LineSensor_X"
       left: 10
       size: 100
       stall duration: 5
@@ -198,7 +197,7 @@ Visualization Manager:
       Topic: /diagnostics
       Value: true
       alpha: 0.800000012
-      diagnostics namespace: "robocon19_diagnostics_node: LRF"
+      diagnostics namespace: "robocon19_diagnostics_node: LineSensor_Y"
       left: 10
       size: 100
       stall duration: 5
@@ -210,7 +209,7 @@ Visualization Manager:
       Topic: /diagnostics
       Value: true
       alpha: 0.800000012
-      diagnostics namespace: "robocon19_diagnostics_node: Map"
+      diagnostics namespace: "robocon19_diagnostics_node: LRF"
       left: 10
       size: 100
       stall duration: 5
@@ -222,7 +221,7 @@ Visualization Manager:
       Topic: /diagnostics
       Value: true
       alpha: 0.800000012
-      diagnostics namespace: "robocon19_diagnostics_node: mbed_to_ros"
+      diagnostics namespace: "robocon19_diagnostics_node: Mbed"
       left: 10
       size: 100
       stall duration: 5

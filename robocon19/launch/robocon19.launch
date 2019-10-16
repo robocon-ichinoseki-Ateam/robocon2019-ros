@@ -8,7 +8,7 @@
   <!-- <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" args="0 -0.29 0 0 0 0.707 0.707 /base_link /base_laser_link 40" /> -->
   <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" args="0 -0.3875 0 0 0 0 1 /base_link /base_laser_link 40" />
 
-  <!-- <node pkg="tf" type="static_transform_publisher" name="map_to_odom" args="0.0 0.0 0.0 0.0 0.0 0 1 /map /odom 40" /> -->
+  <node pkg="tf" type="static_transform_publisher" name="map_to_odom" args="0.0 0.0 0.0 0.0 0.0 0 1 /map /odom 40" />
 
   <arg name="rvizconfig" default="$(find robocon19)/rviz/SETTING.rviz" />
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find robocon19)/rviz/SETTING.rviz" />
@@ -17,7 +17,7 @@
   <node name="map_server" pkg="map_server" type="map_server" args="$(find robocon19_map)/map/$(arg zone)/$(arg zone).yaml"/>
 
   <include file="$(find robocon19_diagnostics)/launch/robocon19_diagnostics.launch"/>
-  <include file="$(find robocon19_localization)/launch/robocon19_localization.launch"/>
+  <!-- <include file="$(find robocon19_localization)/launch/robocon19_localization.launch"/> -->
   <include file="$(find robocon19_line_sensor)/launch/robocon19_line_sensor.launch"/>
   <include file="$(find robocon19_laser_filters)/launch/robocon19_laser_filters.launch"/>
 
@@ -36,12 +36,12 @@
     <node pkg="rosserial_python" type="serial_node.py" name="serial_node_0">
       <param name="port" value="/dev/ttyACM0"/>
     </node>
-    <!-- <node pkg="rosserial_python" type="serial_node.py" name="serial_node_1">
+    <node pkg="rosserial_python" type="serial_node.py" name="serial_node_1">
       <param name="port" value="/dev/ttyACM1"/>
     </node>
     <node pkg="rosserial_python" type="serial_node.py" name="serial_node_2">
       <param name="port" value="/dev/ttyACM2"/>
-    </node> -->
+    </node>
     <!-- <group if="$(eval record=='true')">
       <node pkg="rosbag" type="record" name="rosbag_record"  args="record -o /scan /mbed_to_ros /line_sensor/x /line_sensor/y"/>
     </group> -->

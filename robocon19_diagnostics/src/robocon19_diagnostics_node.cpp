@@ -1,11 +1,12 @@
 #include "../../util/util.h"
 
-#define device_num 7
+#define device_num 8
 
 enum
 {
     amcl_id,
-    line_sensor_id,
+    line_sensor_x_id,
+    line_sensor_y_id,
     scan_id,
     map_id,
     to_ros_id,
@@ -58,13 +59,22 @@ void diagnosticAmcl(diagnostic_updater::DiagnosticStatusWrapper &stat)
     generateDiagnosticupdater(state[amcl_id], stat);
 }
 
-void callbackLinesensor(const std_msgs::Int32MultiArray &msg_line_sensor)
+void callbackLinesensor_x(const std_msgs::Float32MultiArray &msg_line_sensor)
 {
-    state[line_sensor_id] = 0;
+    state[line_sensor_x_id] = 0;
 }
 void diagnosticLinesensor(diagnostic_updater::DiagnosticStatusWrapper &stat)
 {
-    generateDiagnosticupdater(state[line_sensor_id], stat);
+    generateDiagnosticupdater(state[line_sensor_x_id], stat);
+}
+
+void callbackLinesensor_y(const std_msgs::Float32MultiArray &msg_line_sensor)
+{
+    state[line_sensor_y_id] = 0;
+}
+void diagnosticLinesensor_y(diagnostic_updater::DiagnosticStatusWrapper &stat)
+{
+    generateDiagnosticupdater(state[line_sensor_y_id], stat);
 }
 
 void callbackScan(const sensor_msgs::LaserScan &msg_scan)
@@ -122,9 +132,10 @@ int main(int argc, char **argv)
     {
         state[i] = 2;
     }
-    state[1] = 0;
-    state[5] = 0;
+    state[0] = 0;
+    state[4] = 0;
     state[6] = 0;
+    state[7] = 0;
 
     diagnostic_updater::Updater updater;
 
@@ -135,9 +146,13 @@ int main(int argc, char **argv)
     updater.setHardwareID("AMCL");
     updater.add("AMCL", diagnosticAmcl);
 
-    ros::Subscriber sub_line_sensor = nh.subscribe("line_sensor", 100, callbackLinesensor);
-    updater.setHardwareID("LineSensor");
-    updater.add("LineSensor", diagnosticLinesensor);
+    ros::Subscriber sub_line_sensor_x = nh.subscribe("line_sensor/x", 100, callbackLinesensor_x);
+    updater.setHardwareID("LineSensor_X");
+    updater.add("LineSensor_X", diagnosticLinesensor);
+
+    ros::Subscriber sub_line_sensor_y = nh.subscribe("line_sensor/y", 100, callbackLinesensor_y);
+    updater.setHardwareID("LineSensor_Y");
+    updater.add("LineSensor_Y", diagnosticLinesensor);
 
     ros::Subscriber sub_scan = nh.subscribe("scan", 100, callbackScan);
     updater.setHardwareID("LRF");
@@ -148,8 +163,8 @@ int main(int argc, char **argv)
     updater.add("Map", diagnosticMap);
 
     ros::Subscriber sub_to_ros = nh.subscribe("mbed_to_ros", 100, callbackToros);
-    updater.setHardwareID("mbed_to_ros");
-    updater.add("mbed_to_ros", diagnosticToros);
+    updater.setHardwareID("Mbed");
+    updater.add("Mbed", diagnosticToros);
 
     ros::Subscriber sub_to_mbed = nh.subscribe("ros_to_mbed", 100, callbackTombed);
     updater.setHardwareID("ros_to_mbed");

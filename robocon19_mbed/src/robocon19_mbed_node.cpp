@@ -104,7 +104,7 @@ int main(int argc, char **argv)
         pub_lift_height.publish(lift_height);
 
         // スイッチデータの送信
-        pub_switch_data.publish(switch_data);
+        // pub_switch_data.publish(switch_data);
 
         // リセット信号の送信
         pub_reset.publish(needs_reset_pose);

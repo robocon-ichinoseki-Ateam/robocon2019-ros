@@ -1,4 +1,4 @@
-char display_chars[256];
+char display_chars[512];
 void configOverlayText(jsk_rviz_plugins::OverlayText &t);
 void generateDisplayStr(float pose[3]);
 
@@ -7,7 +7,7 @@ void configOverlayText(jsk_rviz_plugins::OverlayText &t)
 {
     t.action = jsk_rviz_plugins::OverlayText::ADD;
     t.width = 230;
-    t.height = 78;
+    t.height = 150;
     t.left = 10;
     t.top = 10;
 
@@ -33,16 +33,25 @@ void configOverlayText(jsk_rviz_plugins::OverlayText &t)
 // rvizに表示するテキストデータを生成
 void generateDisplayStr(float pose[3], float odom[3])
 {
-    char str_1[20] = (switch_val & 0b00000001) ? "昇降位置合わせ" : "通常走行";
-    char str_3[20] = (switch_val & 0b00000010) ? "青" : "赤";
-    char str_4[20] = (switch_val & 0b00000100) ? "決勝" : "予選";
-    char str_5[20] = (switch_val & 0b00001000) ? "バスタオル:掛ける" : "バスタオル:掛けない";
-    char str_6[20] = (switch_val & 0b00110000 == 0) ? "シーツ:掛けない" : ((switch_val & 0b00110000 == 1) ? "シーツ:3点" : "シーツ:9点");
+    char str_1[20];
+    char str_2[20];
+    char str_3[20];
+    char str_4[20];
+    char str_5[20];
 
-    sprintf(display_chars, "%d\r\n\
+    strcpy(str_1, (switch_val & 0b00000001) ? "通常走行" : "昇降位置合わせ");
+    strcpy(str_2, (switch_val & 0b00000010) ? "青ゾーン" : "赤ゾーン");
+    strcpy(str_3, (switch_val & 0b00000100) ? " 決勝" : " 予選");
+    strcpy(str_4, (switch_val & 0b00001000) ? "バスタオル:掛ける" : "バスタオル:掛けない");
+    strcpy(str_5, (switch_val & 0b00100000) ? "シーツ:9点" : ((switch_val & 0b00010000) ? "シーツ:3点" : "シーツ:掛けない"));
+
+    sprintf(display_chars, "%s\r\n\
+                            %s%s\r\n\
+                            %s\r\n\
+                            %s\r\n\
                             ____amcl_____odom_____diff_\r\n\
                             x| %+.3f | %+.3f | %+.3f\r\n\
                             y| %+.3f | %+.3f | %+.3f\r\n\
-                            z| %+.3f | %+.3f | %+.3f",
-            switch_val, pose[0], odom[0], pose[0] - odom[0], pose[1], odom[1], pose[1] - odom[1], pose[2] * (180 / 3.14159), odom[2] * (180 / 3.14159), (pose[2] - odom[2]) * (180 / 3.14159));
+                            z| %+06.1f | %+06.1f | %+06.1f",
+            str_1, str_2, str_3, str_4, str_5, pose[0], odom[0], pose[0] - odom[0], pose[1], odom[1], pose[1] - odom[1], pose[2] * (180 / 3.14159), odom[2] * (180 / 3.14159), (pose[2] - odom[2]) * (180 / 3.14159));
 }
